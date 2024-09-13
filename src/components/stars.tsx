@@ -4,12 +4,14 @@ import { Icon } from '@iconify/react';
 interface StarRatingProps {
   rating: number;
   maxStars?: number;
-  onRate?: (rating: number) => void; // Callback for when rating is updated
+  starSize?: string;
+  onRate?: (rating: number) => void;
 }
 
 const StarRating: React.FC<StarRatingProps> = ({
   rating,
   maxStars = 5,
+  starSize = '50px',
   onRate,
 }) => {
   const [hoverRating, setHoverRating] = useState<number | null>(null);
@@ -29,8 +31,8 @@ const StarRating: React.FC<StarRatingProps> = ({
     if (onRate) onRate(newRating);
   };
 
-  const fullStars = hoverRating ?? currentRating; // Number of full stars
-  const emptyStars = maxStars - fullStars; // Remaining empty stars
+  const fullStars = hoverRating ?? currentRating; 
+  const emptyStars = maxStars - fullStars;
 
   return (
     <div className="flex items-center">
@@ -40,31 +42,24 @@ const StarRating: React.FC<StarRatingProps> = ({
           <Icon
             key={`full-${index}`}
             icon="fluent:star-48-filled"
-            style={{
-              color: 'gold',
-              width: '50px',
-              height: '50px',
-              cursor: 'pointer',
-            }}
+            width={starSize}
+            height={starSize}
+            className="cursor-pointer text-[#FFCB45]"
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleClick(index)}
           />
         ))}
 
-      {/* Render empty stars */}
       {Array(emptyStars)
         .fill(0)
         .map((_, index) => (
           <Icon
             key={`empty-${index}`}
             icon="fluent:star-48-filled"
-            style={{
-              color: 'gray',
-              width: '50px',
-              height: '50px',
-              cursor: 'pointer',
-            }}
+            width={starSize}
+            height={starSize}
+            className="cursor-pointer text-[#F2F2F2]"
             onMouseEnter={() => handleMouseEnter(fullStars + index)}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleClick(fullStars + index)}
