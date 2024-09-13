@@ -29,13 +29,11 @@ const StarRating: React.FC<StarRatingProps> = ({
     if (onRate) onRate(newRating);
   };
 
-  const fullStars = Math.floor(hoverRating ?? currentRating); // Number of full stars
-  const hasHalfStar = (hoverRating ?? currentRating) % 1 >= 0.5; // Check if there's a half star
-  const emptyStars = maxStars - fullStars - (hasHalfStar ? 1 : 0); // Remaining empty stars
+  const fullStars = hoverRating ?? currentRating; // Number of full stars
+  const emptyStars = maxStars - fullStars; // Remaining empty stars
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      {/* Render full stars */}
+    <div className="flex items-center">
       {Array(fullStars)
         .fill(0)
         .map((_, index) => (
@@ -54,23 +52,6 @@ const StarRating: React.FC<StarRatingProps> = ({
           />
         ))}
 
-      {/* Render half star, if applicable */}
-      {hasHalfStar && (
-        <Icon
-          icon="fluent:star-48-filled"
-          style={{
-            color: 'gold',
-            width: '50px',
-            height: '50px',
-            cursor: 'pointer',
-            clipPath: 'inset(0 50% 0 0)',
-          }}
-          onMouseEnter={() => handleMouseEnter(fullStars)}
-          onMouseLeave={handleMouseLeave}
-          onClick={() => handleClick(fullStars)}
-        />
-      )}
-
       {/* Render empty stars */}
       {Array(emptyStars)
         .fill(0)
@@ -84,13 +65,9 @@ const StarRating: React.FC<StarRatingProps> = ({
               height: '50px',
               cursor: 'pointer',
             }}
-            onMouseEnter={() =>
-              handleMouseEnter(fullStars + (hasHalfStar ? 1 : 0) + index)
-            }
+            onMouseEnter={() => handleMouseEnter(fullStars + index)}
             onMouseLeave={handleMouseLeave}
-            onClick={() =>
-              handleClick(fullStars + (hasHalfStar ? 1 : 0) + index)
-            }
+            onClick={() => handleClick(fullStars + index)}
           />
         ))}
     </div>
