@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 function Navbar() {
   return (
-    <nav className="flex items-center px-20 py-5">
+    <nav className="flex items-center justify-between px-20 py-5">
       <Link to="/" className="flex-shrink-0">
         <img src="/images/logo-horizontal.svg" className="w-40" alt="logo" />
       </Link>
