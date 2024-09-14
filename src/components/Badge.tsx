@@ -6,7 +6,7 @@ export type SaleBadgeProps = {
   text: string; // Text to display in the badge
 };
 
-const SaleBadge: React.FC<SaleBadgeProps> = ({ type = 'new', text }) => {
+const Badge: React.FC<SaleBadgeProps> = ({ type = 'new', text }) => {
   const badgeClasses = {
     new: 'bg-light-green text-white',
     discount: 'bg-light-red text-white',
@@ -24,4 +24,4 @@ const SaleBadge: React.FC<SaleBadgeProps> = ({ type = 'new', text }) => {
   );
 };
 
-export default SaleBadge;
+export default Badge;

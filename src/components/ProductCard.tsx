@@ -1,16 +1,16 @@
-import React from 'react';
-import StarRating from './Stars';
+import React, { useState } from 'react';
+import Stars from './Stars';
 import { Icon } from '@iconify/react';
-import SaleBadge from './Badge';
+import Badge from './Badge';
 
-interface ProductCardProps {
+export type ProductCardProps = {
   productName: string;
   sellerName: string;
   price: number;
-  rating: number; // Only accepts whole numbers
-  imageSrc: string; // Prop for image source
-  isNew?: boolean; // Optional prop for sale type
-  discount?: number; // Optional discount percentage for "best" type
+  rating: number;
+  imageSrc: string;
+  isNew?: boolean;
+  discount?: number;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -20,35 +20,47 @@ const ProductCard: React.FC<ProductCardProps> = ({
   rating,
   imageSrc,
   isNew,
-  discount = 50, // Default discount percentage
+  discount = 50,
 }) => {
-  // Calculate discounted price if saleType is "best" or "both"
   const discountedPrice = discount ? price - (price * discount) / 100 : price;
+  const [hidden, setHidden] = useState(true);
 
   return (
-    <div className="relative flex h-[462px] w-[300px] flex-col items-start justify-center rounded-md bg-[#FAF3EA] shadow-[0_2px_15px_5px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-secondary">
-      {/* Product Image */}
-      <div className="">
+    <div
+      className="relative flex h-[462px] w-[300px] flex-col items-start justify-center rounded-md bg-[#FAF3EA] shadow-[0_2px_15px_5px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-secondary"
+      onMouseEnter={() => setHidden(false)}
+      onMouseLeave={() => setHidden(true)}
+    >
+      <div className="relative">
         <img
           src={imageSrc}
           className="h-auto w-full rounded-t-md object-cover"
           alt="Product"
         />
 
-        <div className="flex gap-6">
-          {isNew && <SaleBadge type="new" text="New" />}
-          {discount && <SaleBadge type="discount" text={`%${discount}`} />}
+        <div
+          className={`absolute inset-0 flex items-center justify-center gap-9 transition-opacity duration-300 ${hidden ? 'opacity-0' : 'opacity-100'}`}
+        >
+          <Icon
+            icon="solar:cart-large-minimalistic-linear"
+            className="h-10 w-10 text-2xl text-amber-400"
+          />
+          <Icon
+            icon="ri:heart-add-2-line"
+            className="h-10 w-10 text-2xl text-white"
+          />
+        </div>
+        <div className="absolute right-2 top-2 flex gap-6">
+          {isNew && <Badge type="new" text="New" />}
+          {discount && <Badge type="discount" text={`%${discount}`} />}
         </div>
       </div>
 
-      {/* Product Details */}
       <div className="p-4">
-        {/* Product Name */}
         <h5 className="font-poppins mb-2 text-[24px] font-semibold leading-[28.8px] text-[#3A3A3A]">
           {productName}
         </h5>
 
-        {/* Seller Name */}
         <div className="mb-2 flex items-center">
           <Icon
             icon="solar:user-circle-linear"
@@ -61,12 +73,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </p>
         </div>
 
-        {/* Star Rating */}
         <div className="mb-4 flex h-[10px] items-start">
-          <StarRating rating={rating} />
+          <Stars rating={rating} />
         </div>
 
-        {/* Price */}
         <div className="font-poppins flex w-full items-center justify-between text-[20px] font-bold leading-[30px]">
           {discount ? (
             <>
