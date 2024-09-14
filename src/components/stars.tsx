@@ -6,32 +6,40 @@ interface StarRatingProps {
   maxStars?: number;
   starSize?: string;
   onRate?: (rating: number) => void;
+  isStatic?: boolean;
 }
 
 const StarRating: React.FC<StarRatingProps> = ({
   rating,
   maxStars = 5,
-  starSize = '50px',
+  starSize = '25px',
   onRate,
+  isStatic = false,
 }) => {
   const [hoverRating, setHoverRating] = useState<number | null>(null);
   const [currentRating, setCurrentRating] = useState<number>(rating);
 
   const handleMouseEnter = (index: number) => {
-    setHoverRating(index + 1);
+    if (!isStatic) {
+      setHoverRating(index + 1);
+    }
   };
 
   const handleMouseLeave = () => {
-    setHoverRating(null);
+    if (!isStatic) {
+      setHoverRating(null);
+    }
   };
 
   const handleClick = (index: number) => {
-    const newRating = index + 1;
-    setCurrentRating(newRating);
-    if (onRate) onRate(newRating);
+    if (!isStatic) {
+      const newRating = index + 1;
+      setCurrentRating(newRating);
+      if (onRate) onRate(newRating);
+    }
   };
 
-  const fullStars = hoverRating ?? currentRating; 
+  const fullStars = hoverRating ?? currentRating;
   const emptyStars = maxStars - fullStars;
 
   return (
@@ -59,7 +67,7 @@ const StarRating: React.FC<StarRatingProps> = ({
             icon="fluent:star-48-filled"
             width={starSize}
             height={starSize}
-            className="cursor-pointer text-[#F2F2F2]"
+            className="cursor-pointer text-orange"
             onMouseEnter={() => handleMouseEnter(fullStars + index)}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleClick(fullStars + index)}
