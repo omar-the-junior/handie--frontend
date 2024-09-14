@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Button from './Button';
 import { useState } from 'react';
+import { Icon } from '@iconify/react/dist/iconify.js';
 function Navbar() {
   const [isloggedin, setisloggedin] = useState(true);
   return (
@@ -15,7 +16,7 @@ function Navbar() {
       <Link to="/" className="flex-shrink-0">
         <img src="/images/logo-horizontal.svg" className="w-40" alt="logo" />
       </Link>
-      <ul className="flex space-x-10 items-center">
+      <ul className="flex items-center space-x-10">
         <li className="text-sm font-semibold leading-normal text-black">
           <Link to="/">Home</Link>
         </li>
@@ -30,19 +31,24 @@ function Navbar() {
         </li>
       </ul>
       <div className="flex items-center space-x-4">
-      
         <Button size="small" variant="solid" color="primary" className="w-24">
           Sell
         </Button>
 
         {isloggedin ? (
-          <img
-            src="public/images/profile-user-svgrepo-com(1).svg" // User icon
-           className="w-10 h-10 rounded-full"
+          <Icon
+            icon="iconamoon:profile-circle"
+            width="64"
+            height="64"
+            className="h-10 w-10 rounded-full text-primary"
           />
         ) : (
-          
-          <Button size="small" variant="outline" color="primary" className="w-24">
+          <Button
+            size="small"
+            variant="outline"
+            color="primary"
+            className="w-24"
+          >
             Login
           </Button>
         )}
