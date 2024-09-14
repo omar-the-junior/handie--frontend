@@ -6,6 +6,8 @@ export default {
       colors: {
         primary: '#B88E2F',
         secondary: '#FAF3EA',
+        'light-green': '#2EC1AC',
+        'light-red': '#E97171',
       },
       fontFamily: {
         serif: ['Poppins', 'sans-serif'],

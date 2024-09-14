@@ -1,15 +1,15 @@
 import React from 'react';
 import StarRating from './Stars';
 import { Icon } from '@iconify/react';
-import SaleBadge from './SaleBadge';
+import SaleBadge from './Badge';
 
 interface ProductCardProps {
   productName: string;
   sellerName: string;
   price: number;
-  rating: number; // A number like 4.5 or 5
+  rating: number; // Only accepts whole numbers
   imageSrc: string; // Prop for image source
-  saleType?: 'new' | 'both'; // Optional prop for sale type
+  isNew?: boolean; // Optional prop for sale type
   discount?: number; // Optional discount percentage for "best" type
 }
 
@@ -19,12 +19,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
   price,
   rating,
   imageSrc,
-  saleType,
+  isNew,
   discount = 50, // Default discount percentage
 }) => {
   // Calculate discounted price if saleType is "best" or "both"
-  const discountedPrice =
-    saleType === 'both' ? price - (price * discount) / 100 : price;
+  const discountedPrice = discount ? price - (price * discount) / 100 : price;
 
   return (
     <div className="relative flex h-[462px] w-[300px] flex-col items-start justify-center rounded-md bg-[#FAF3EA] shadow-[0_2px_15px_5px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-secondary">
@@ -34,12 +33,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
           src={imageSrc}
           className="h-auto w-full rounded-t-md object-cover"
           alt="Product"
-          onError={(e) => {
-            console.error('Image not found:', e);
-            e.currentTarget.src = '/fallback-image.png'; // Optional: provide a fallback image
-          }}
         />
-        {saleType && <SaleBadge type={saleType} discount={discount} />}
+
+        <div className="flex gap-6">
+          {isNew && <SaleBadge type="new" text="New" />}
+          {discount && <SaleBadge type="discount" text={`%${discount}`} />}
+        </div>
       </div>
 
       {/* Product Details */}
@@ -69,7 +68,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
         {/* Price */}
         <div className="font-poppins flex w-full items-center justify-between text-[20px] font-bold leading-[30px]">
-          {saleType === 'both' ? (
+          {discount ? (
             <>
               <span className="text-[#3A3A3A]">
                 ${discountedPrice.toFixed(2)}
