@@ -8,16 +8,16 @@ function Navbar() {
       </Link>
       <ul className="flex space-x-4">
         <li className="w-12 text-sm font-semibold leading-normal text-black">
-          <Link to={'/home'}>Home</Link>
+          <Link to="/">Home</Link>
         </li>
         <li className="w-10 text-sm font-semibold leading-normal text-black">
-          <Link to={'/shop'}>Shop</Link>
+          <Link to="/shop">Shop</Link>
         </li>
         <li className="w-12 text-sm font-semibold leading-normal text-black">
-          <Link to={'/about'}>About</Link>
+          <Link to="/about">About</Link>
         </li>
         <li className="w-16 text-sm font-semibold leading-normal text-black">
-          <Link to={'/Contact'}>Contact</Link>
+          <Link to="/Contact">Contact</Link>
         </li>
       </ul>
     </nav>
