@@ -6,7 +6,6 @@ export default {
       colors: {
         primary: '#B88E2F',
         secondary: '#FAF3EA',
-        danger: '#FF0000',
       },
       fontFamily: {
         serif: ['Poppins', 'sans-serif'],
