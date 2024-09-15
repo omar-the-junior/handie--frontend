@@ -39,15 +39,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
         />
 
         <div
-          className={`absolute inset-0 flex items-center justify-center gap-9 transition-opacity duration-300 ${hidden ? 'opacity-0' : 'opacity-100'}`}
+          className={`absolute inset-0 flex bg-custome-bg-grey rounded-t-md  items-center justify-center gap-9 transition-opacity duration-300 ${hidden ? 'opacity-0' : 'opacity-100'}`}
         >
           <Icon
             icon="solar:cart-large-minimalistic-linear"
-            className="h-10 w-10 text-2xl text-amber-400"
+            className="h-10 w-10 text-2xl text-amber-400 cursor-pointer"
           />
           <Icon
             icon="ri:heart-add-2-line"
-            className="h-10 w-10 text-2xl text-white"
+            className="h-10 w-10 text-2xl text-white cursor-pointer"
           />
         </div>
         <div className="absolute right-2 top-2 flex gap-6">

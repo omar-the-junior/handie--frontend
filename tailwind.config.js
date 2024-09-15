@@ -8,6 +8,7 @@ export default {
         secondary: '#FAF3EA',
         'light-green': '#2EC1AC',
         'light-red': '#E97171',
+        'custome-bg-grey': 'rgb(58, 58, 58, 0.72)',
       },
       fontFamily: {
         serif: ['Poppins', 'sans-serif'],
