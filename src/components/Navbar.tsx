@@ -42,7 +42,6 @@ function Navbar() {
             <Icon icon="ci:close-big" width="30" height="30" className="text-black" />
           </button>
 
-          {/* Arrange menu items in a column */}
           <ul className="flex flex-col items-start space-y-4 mt-10">
             <li className="text-sm font-semibold leading-normal text-black">
               <Link to="/">Home</Link>
@@ -58,7 +57,6 @@ function Navbar() {
             </li>
           </ul>
 
-          {/* Arrange sell and login buttons in a column */}
           <div className="flex flex-col items-start space-y-4 mt-8">
             {IsSeller && IsLoggedIn ? (
               <img src="/sell.svg" alt="Sell" />
@@ -121,7 +119,6 @@ function Navbar() {
         <img src="/images/logo-horizontal.svg" className="w-40" alt="logo" />
       </Link>
 
-      {/* <div className={`flex-grow ${IsMenuOpen ? 'hidden lg:flex' : 'flex'}`}> */}
       <ul className="flex items-center space-x-10">
         <li className="text-sm font-semibold leading-normal text-black">
           <Link to="/">Home</Link>
@@ -150,7 +147,7 @@ function Navbar() {
 
         {IsLoggedIn ? (
           <>
-            {/* Wrap the icon and dropdown must in fragment */}
+          
             <Icon
               icon="iconamoon:profile-circle"
               width="64"
