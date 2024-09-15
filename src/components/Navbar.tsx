@@ -13,6 +13,9 @@ function Navbar() {
   };
   const toggleMobileMenu = () => {
     setismenuopen(!ismenuopen);
+    if (ismenuopen) {
+      setisdropdown(false); 
+    }
   };
 
   return (
