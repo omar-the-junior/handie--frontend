@@ -1,9 +1,59 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 @layer base {
-  html {
-    font-family: 'Poppins', sans-serif;
+  input[type='text'],
+  input[type='password'],
+  input[type='email'],
+  input[type='number'],
+  input[type='url'],
+  input[type='date'],
+  input[type='datetime-local'],
+  input[type='month'],
+  input[type='week'],
+  input[type='time'],
+  input[type='search'],
+  input[type='tel'],
+  input[type='checkbox'],
+  input[type='radio'],
+  input[type='color'],
+  select,
+  select[multiple],
+  textarea {
+    @apply border border-charcoal font-poppins focus:border-primary focus:outline-none focus:ring-primary;
+    @apply placeholder:font-poppins;
+  }
+
+  input[type='text'],
+  input[type='password'],
+  input[type='email'],
+  input[type='number'],
+  input[type='date'],
+  input[type='time'],
+  input[type='color'],
+  select,
+  textarea {
+    @apply rounded-md px-3 py-2 text-sm font-medium shadow-sm focus:outline-none;
+    @apply placeholder:font-medium placeholder:text-neutral;
+  }
+
+  input[type='file'] {
+    @apply border-none px-0 text-sm text-primary shadow-none file:mr-4 file:cursor-pointer file:rounded-full file:border-0 file:bg-primary file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-accent focus:outline-none;
+  }
+
+  input[type='color'] {
+    @apply min-h-10 bg-transparent;
+  }
+
+  label {
+    @apply font-poppins text-sm font-semibold text-charcoal;
+  }
+
+  input[type='checkbox'],
+  input[type='radio'] {
+    @apply h-4 w-4 border-charcoal text-primary;
+  }
+  input[type='checkbox'] {
+    @apply rounded;
   }
 }
