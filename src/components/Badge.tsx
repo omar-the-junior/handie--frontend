@@ -9,7 +9,7 @@ export type SaleBadgeProps = {
 const Badge: React.FC<SaleBadgeProps> = ({ type = 'new', text }) => {
   const badgeClasses = {
     new: 'bg-light-green text-white',
-    discount: 'bg-light-red text-white',
+    discount: 'bg-alert text-white',
   };
 
   return (
