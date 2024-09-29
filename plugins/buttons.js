@@ -47,12 +47,21 @@ export default plugin(({ addComponents, theme }) => {
           color: theme('colors.white'),
         },
       },
+
       '&.btn-sm': {
         padding: '0.5rem 1rem',
         borderRadius: theme('borderRadius.DEFAULT'),
         fontWeight: theme('fontWeight.sm'),
         fontSize: theme('fontSize.sm'),
       },
+
+      '&.btn-md': {
+        padding: '0.625rem 1.25rem',
+        borderRadius: theme('borderRadius.md'),
+        fontSize: theme('fontSize.base'),
+        fontWeight: theme('fontWeight.semibold'),
+      },
+
       '&.btn-lg': {
         padding: '0.875rem 1.75rem',
         borderRadius: theme('borderRadius.lg'),
