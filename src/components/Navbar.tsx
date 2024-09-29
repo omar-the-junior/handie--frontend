@@ -19,30 +19,31 @@ function Navbar() {
   };
 
   return (
-    <nav
-      className="flex items-center justify-flex items-center justify-between w-full py-5 px-20 border-b-2 border-[#B88E2F]"
-    >
-
+    <nav className="justify-flex flex w-full items-center justify-between border-b-2 border-primary px-20 py-5">
       <div className="block lg:hidden">
         <button onClick={toggleMobileMenu}>
-          <Icon icon="ci:menu-alt-02" width="40" height="40" className="text-black absolute top-[30px] right-[20px]"
+          <Icon
+            icon="ci:menu-alt-02"
+            width="40"
+            height="40"
+            className="absolute right-[20px] top-[30px] text-black"
           />
         </button>
       </div>
 
-
-
-
-
       {IsMenuOpen && (
-        <div
-          className="fixed top-0 right-0 h-full bg-white shadow-lg z-50 w-[250px] p-5 border-l-2 border-[#B88E2F]"
-        >
-          <button onClick={toggleMobileMenu} className="absolute top-4 right-4">
-            <Icon icon="ci:close-big" width="30" height="30" className="text-black" />
+        <div className="fixed right-0 top-0 z-50 h-full w-[250px] border-l-2 border-primary bg-white p-5 shadow-lg">
+          <button onClick={toggleMobileMenu} className="absolute right-4 top-4">
+            <Icon
+              icon="ci:close-big"
+              width="30"
+              height="30"
+              className="text-black"
+            />
           </button>
 
-          <ul className="flex flex-col items-start space-y-4 mt-10">
+          {/* Arrange menu items in a column */}
+          <ul className="mt-10 flex flex-col items-start space-y-4">
             <li className="text-sm font-semibold leading-normal text-black">
               <Link to="/">Home</Link>
             </li>
@@ -57,12 +58,18 @@ function Navbar() {
             </li>
           </ul>
 
-          <div className="flex flex-col items-start space-y-4 mt-8">
+          {/* Arrange sell and login buttons in a column */}
+          <div className="mt-8 flex flex-col items-start space-y-4">
             {IsSeller && IsLoggedIn ? (
               <img src="/sell.svg" alt="Sell" />
             ) : (
               <div onClick={() => SetIsSeller(!IsSeller)}>
-                <Button size="small" variant="solid" color="primary" className="w-24">
+                <Button
+                  size="small"
+                  variant="solid"
+                  color="primary"
+                  className="w-24"
+                >
                   Sell
                 </Button>
               </div>
@@ -79,21 +86,37 @@ function Navbar() {
                 />
 
                 {IsDropDown && (
-                  <div
-                    className="flex flex-col mt-2 bg-[#F6F0E4] shadow-lg rounded-lg border border-[#E8E8E8] z-[1000] absolute right-[10px] top-[100px] p-4 dropdown"
-                  >
+                  <div className="dropdown border-neutral absolute right-[10px] top-[100px] z-[1000] mt-2 flex flex-col rounded-lg border bg-secondary p-4 shadow-lg">
                     <ul className="flex flex-col space-y-4">
                       <li className="flex items-center space-x-2">
-                        <img src="/shopping_cart.svg" alt="Wishlist Icon" className="w-6 h-6" />
-                        <span className="font-semibold text-black">Wishlist</span>
+                        <img
+                          src="/shopping_cart.svg"
+                          alt="Wishlist Icon"
+                          className="h-6 w-6"
+                        />
+                        <span className="font-semibold text-black">
+                          Wishlist
+                        </span>
                       </li>
                       <li className="flex items-center space-x-2">
-                        <img src="/wishlist.svg" alt="Shopping Cart Icon" className="w-6 h-6" />
-                        <span className="font-semibold text-black">Shopping cart</span>
+                        <img
+                          src="/wishlist.svg"
+                          alt="Shopping Cart Icon"
+                          className="h-6 w-6"
+                        />
+                        <span className="font-semibold text-black">
+                          Shopping cart
+                        </span>
                       </li>
                       <li className="flex items-center space-x-2">
-                        <img src="/profile.svg" alt="Profile Icon" className="w-6 h-6" />
-                        <span className="font-semibold text-black">Profile</span>
+                        <img
+                          src="/profile.svg"
+                          alt="Profile Icon"
+                          className="h-6 w-6"
+                        />
+                        <span className="font-semibold text-black">
+                          Profile
+                        </span>
                       </li>
                     </ul>
                   </div>
@@ -101,7 +124,12 @@ function Navbar() {
               </>
             ) : (
               <div onClick={() => SetIsLoggedIn(!IsLoggedIn)}>
-                <Button size="small" variant="outline" color="primary" className="w-24">
+                <Button
+                  size="small"
+                  variant="outline"
+                  color="primary"
+                  className="w-24"
+                >
                   Login
                 </Button>
               </div>
@@ -109,11 +137,6 @@ function Navbar() {
           </div>
         </div>
       )}
-
-
-
-
-
 
       <Link to="/" className="flex-shrink-0">
         <img src="/images/logo-horizontal.svg" className="w-40" alt="logo" />
@@ -139,7 +162,12 @@ function Navbar() {
           <img src="/sell.svg" alt="Sell" />
         ) : (
           <div onClick={() => SetIsSeller(!IsSeller)}>
-            <Button size="small" variant="solid" color="primary" className="w-24">
+            <Button
+              size="small"
+              variant="solid"
+              color="primary"
+              className="w-24"
+            >
               Sell
             </Button>
           </div>
@@ -147,7 +175,6 @@ function Navbar() {
 
         {IsLoggedIn ? (
           <>
-          
             <Icon
               icon="iconamoon:profile-circle"
               width="64"
@@ -157,20 +184,32 @@ function Navbar() {
             />
 
             {IsDropDown && (
-              <div
-                className="flex mt-2 bg-[#F6F0E4] shadow-lg rounded-lg border border-[#E8E8E8] z-[1000] absolute right-[10px] top-[100px] p-4 dropdown"
-              >
+              <div className="dropdown border-neutral absolute right-[10px] top-[100px] z-[1000] mt-2 flex rounded-lg border bg-secondary p-4 shadow-lg">
                 <ul className="flex flex-col space-y-4">
                   <li className="flex items-center space-x-2">
-                    <img src="/shopping_cart.svg" alt="Wishlist Icon" className="w-6 h-6" />
+                    <img
+                      src="/shopping_cart.svg"
+                      alt="Wishlist Icon"
+                      className="h-6 w-6"
+                    />
                     <span className="font-semibold text-black">Wishlist</span>
                   </li>
                   <li className="flex items-center space-x-2">
-                    <img src="/wishlist.svg" alt="Shopping Cart Icon" className="w-6 h-6" />
-                    <span className="font-semibold text-black">Shopping cart</span>
+                    <img
+                      src="/wishlist.svg"
+                      alt="Shopping Cart Icon"
+                      className="h-6 w-6"
+                    />
+                    <span className="font-semibold text-black">
+                      Shopping cart
+                    </span>
                   </li>
                   <li className="flex items-center space-x-2">
-                    <img src="/profile.svg" alt="Profile Icon" className="w-6 h-6" />
+                    <img
+                      src="/profile.svg"
+                      alt="Profile Icon"
+                      className="h-6 w-6"
+                    />
                     <span className="font-semibold text-black">Profile</span>
                   </li>
                 </ul>
@@ -179,14 +218,18 @@ function Navbar() {
           </>
         ) : (
           <div onClick={() => SetIsLoggedIn(!IsLoggedIn)}>
-            <Button size="small" variant="outline" color="primary" className="w-24">
+            <Button
+              size="small"
+              variant="outline"
+              color="primary"
+              className="w-24"
+            >
               Login
             </Button>
           </div>
         )}
       </div>
-
-    </nav >
+    </nav>
   );
 }
 

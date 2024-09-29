@@ -22,6 +22,7 @@
   "devDependencies": {
     "@eslint/js": "^9.9.0",
     "@iconify/react": "^5.0.2",
+<<<<<<< HEAD
     "@types/babel__core": "^7.20.5",
     "@types/babel__generator": "^7.6.8",
     "@types/babel__template": "^7.4.4",
@@ -29,6 +30,10 @@
     "@types/estree": "^1.0.6",
     "@types/prop-types": "^15.7.13",
     "@types/react": "^18.3.5",
+=======
+    "@tailwindcss/forms": "^0.5.9",
+    "@types/react": "^18.3.3",
+>>>>>>> 009e4e281a226760477176b36cd2cd7c620a1b77
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.20",
