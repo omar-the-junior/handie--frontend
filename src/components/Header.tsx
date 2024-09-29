@@ -1,8 +1,16 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Breadcrumbs } from "./Breadcrumbs";
 
 function Header() {
-    const location = useLocation();
-    const path = location.pathname;
+    
+    const breadcrumbs = [
+        { name: 'Home', link: '/' },
+        { name: 'Products', link: '/products' },
+        // { name: '', link: '/products/123' },
+    ];
+
+    
+    const currentPageName = breadcrumbs[breadcrumbs.length - 1].name;
 
     return (
         <div className="relative w-full h-[300px]">
@@ -27,41 +35,23 @@ function Header() {
                         lineHeight: "normal",
                     }}
                 >
-                    {path === '/' ? 'Home' : path.substring(1)}
+                    {currentPageName}
                 </h1>
                 <div className="mt-2 text-sm flex items-center">
-                    <a
-                        href="#"
-                        className="text-gray-600 hover:text-gray-800"
-                        style={{
-                            color: 'var(--Ink-Dark, #252A31)',
-                            fontFamily: 'Poppins, sans-serif',
-                            fontSize: '16px',
-                            fontStyle: 'normal',
-                            fontWeight: '500',
-                            lineHeight: '16px',
-                            textDecorationLine: 'underline',
-                            marginRight: '8px',
-                        }}
-                    >
-                        <Link to="/">Home</Link>
-                    </a>
+                    
+                    <Breadcrumbs breadcrumbs={breadcrumbs} /> 
                     <img src="/icon_Header.svg" alt="" className="mx-2" />
-                    <a
-                        href="#"
-                        className="text-gray-600 hover:text-gray-800"
+                    <span
                         style={{
                             color: 'var(--Ink-Dark, #252A31)',
                             fontFamily: 'Poppins, sans-serif',
                             fontSize: '16px',
-                            fontStyle: 'normal',
                             fontWeight: '600',
                             lineHeight: '16px',
-                            textDecorationLine: 'none',
                         }}
                     >
-                        {path === '/' ? 'Home' : path.substring(1)}
-                    </a>
+                     {currentPageName}
+                    </span>
                 </div>
             </div>
         </div>

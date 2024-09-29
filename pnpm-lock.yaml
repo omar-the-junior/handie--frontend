@@ -39,7 +39,9 @@ importers:
       '@iconify/react':
         specifier: ^5.0.2
         version: 5.0.2(react@18.3.1)
-<<<<<<< HEAD
+      '@tailwindcss/forms':
+        specifier: ^0.5.9
+        version: 0.5.9(tailwindcss@3.4.10)
       '@types/babel__core':
         specifier: ^7.20.5
         version: 7.20.5
@@ -58,13 +60,8 @@ importers:
       '@types/prop-types':
         specifier: ^15.7.13
         version: 15.7.13
-=======
-      '@tailwindcss/forms':
-        specifier: ^0.5.9
-        version: 0.5.9(tailwindcss@3.4.10)
->>>>>>> 009e4e281a226760477176b36cd2cd7c620a1b77
       '@types/react':
-        specifier: ^18.3.5
+        specifier: ^18.3.3
         version: 18.3.5
       '@types/react-dom':
         specifier: ^18.3.0
