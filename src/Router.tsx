@@ -5,6 +5,8 @@ import About from './routes/About';
 import Contact from './routes/Contact';
 import Root from './routes/Root';
 import ErrorPage from './ErrorPage';
+import Login from './routes/Login';
+import Signup from './routes/Signup';
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +29,14 @@ export const router = createBrowserRouter([
       {
         path: 'contact',
         element: <Contact />,
+      },
+      {
+        path: 'login',
+        element: <Login />,
+      },
+      {
+        path: 'signup',
+        element: <Signup />,
       },
     ],
   },
