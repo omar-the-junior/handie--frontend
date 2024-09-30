@@ -128,7 +128,7 @@ function UserActions({
     <div className="flex items-center space-x-4">
       {isSeller && isLoggedIn ? (
         <button className="hidden lg:block">
-          <img src="/sell.svg" alt="Sell" />
+          <Icon icon="clarity:store-solid" className="size-10 text-primary" />
         </button>
       ) : (
         <button
@@ -144,7 +144,7 @@ function UserActions({
             <button className="h-10">
               <Icon
                 icon="iconamoon:profile-circle"
-                className="h-10 w-10 rounded-full text-primary"
+                className="size-10 rounded-full text-primary"
               />
             </button>
           </DropdownMenu.Trigger>
@@ -169,7 +169,7 @@ function UserActions({
       ) : (
         <button
           onClick={() => setIsLoggedIn(!isLoggedIn)}
-          className="lg:btn-md btn btn-outline btn-sm"
+          className="btn btn-outline btn-sm lg:btn-md"
         >
           Login
         </button>
