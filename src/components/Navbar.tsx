@@ -2,8 +2,9 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import DropdownMenu from './DropdownMenu';
+import { twMerge } from 'tailwind-merge';
 
-function Navbar() {
+function Navbar({ className }: { className?: string }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSeller, setIsSeller] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,7 +14,12 @@ function Navbar() {
   };
 
   return (
-    <nav className="z-40 w-full border-b-2 border-primary py-5">
+    <nav
+      className={twMerge(
+        'z-40 w-full border-b-2 border-primary py-5',
+        className,
+      )}
+    >
       <div className="container flex items-center justify-between">
         {isMenuOpen && (
           <Sidebar
@@ -86,8 +92,12 @@ function Sidebar({
 
 function Logo() {
   return (
-    <Link to="/" className="flex-shrink-0">
-      <img src="/images/logo-horizontal.svg" className="w-40" alt="logo" />
+    <Link to="/">
+      <img
+        src="/images/logo-horizontal.svg"
+        className="w-40 min-w-28"
+        alt="logo"
+      />
     </Link>
   );
 }
