@@ -16,6 +16,7 @@ export default {
       alert: '#E97171',
       'light-green': '#2EC1AC',
       gray: '#B3B3B3',
+      whisper: '#F5F5F5',
     },
     screens: {
       sm: '640px',
