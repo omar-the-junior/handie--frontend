@@ -1,195 +1,226 @@
 import { Link } from 'react-router-dom';
-import Button from './Button';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import DropdownMenu from './DropdownMenu';
+import { twMerge } from 'tailwind-merge';
+import useClickOutside from '../hooks/useClickOutside';
 
-function Navbar() {
-  const [IsLoggedIn, SetIsLoggedIn] = useState(false);
-  const [IsDropDown, SetIsDropDown] = useState(false);
-  const [IsSeller, SetIsSeller] = useState(false); //get from seller page data
-  const [IsMenuOpen, SetIsMenuOpen] = useState(false);
-  const Toggoledropdown = () => {
-    SetIsDropDown(!IsDropDown);
-  };
+function Navbar({ className }: { className?: string }) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isSeller, setIsSeller] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const toggleMobileMenu = () => {
-    SetIsMenuOpen(!IsMenuOpen);
-    if (IsMenuOpen) {
-      SetIsDropDown(false);
-    }
+    setIsMenuOpen(!isMenuOpen);
   };
 
   return (
     <nav
-      className="flex items-center justify-flex items-center justify-between w-full py-5 px-20 border-b-2 border-[#B88E2F]"
-    >
-
-      <div className="block lg:hidden">
-        <button onClick={toggleMobileMenu}>
-          <Icon icon="ci:menu-alt-02" width="40" height="40" className="text-black absolute top-[30px] right-[20px]"
-          />
-        </button>
-      </div>
-
-
-
-
-
-      {IsMenuOpen && (
-        <div
-          className="fixed top-0 right-0 h-full bg-white shadow-lg z-50 w-[250px] p-5 border-l-2 border-[#B88E2F]"
-        >
-          <button onClick={toggleMobileMenu} className="absolute top-4 right-4">
-            <Icon icon="ci:close-big" width="30" height="30" className="text-black" />
-          </button>
-
-          {/* Arrange menu items in a column */}
-          <ul className="flex flex-col items-start space-y-4 mt-10">
-            <li className="text-sm font-semibold leading-normal text-black">
-              <Link to="/">Home</Link>
-            </li>
-            <li className="text-sm font-semibold leading-normal text-black">
-              <Link to="/shop">Shop</Link>
-            </li>
-            <li className="text-sm font-semibold leading-normal text-black">
-              <Link to="/about">About</Link>
-            </li>
-            <li className="text-sm font-semibold leading-normal text-black">
-              <Link to="/contact">Contact</Link>
-            </li>
-          </ul>
-
-          {/* Arrange sell and login buttons in a column */}
-          <div className="flex flex-col items-start space-y-4 mt-8">
-            {IsSeller && IsLoggedIn ? (
-              <img src="/sell.svg" alt="Sell" />
-            ) : (
-              <div onClick={() => SetIsSeller(!IsSeller)}>
-                <Button size="small" variant="solid" color="primary" className="w-24">
-                  Sell
-                </Button>
-              </div>
-            )}
-
-            {IsLoggedIn ? (
-              <>
-                <Icon
-                  icon="iconamoon:profile-circle"
-                  width="64"
-                  height="64"
-                  className="h-10 w-10 rounded-full text-primary"
-                  onClick={Toggoledropdown}
-                />
-
-                {IsDropDown && (
-                  <div
-                    className="flex flex-col mt-2 bg-[#F6F0E4] shadow-lg rounded-lg border border-[#E8E8E8] z-[1000] absolute right-[10px] top-[100px] p-4 dropdown"
-                  >
-                    <ul className="flex flex-col space-y-4">
-                      <li className="flex items-center space-x-2">
-                        <img src="/shopping_cart.svg" alt="Wishlist Icon" className="w-6 h-6" />
-                        <span className="font-semibold text-black">Wishlist</span>
-                      </li>
-                      <li className="flex items-center space-x-2">
-                        <img src="/wishlist.svg" alt="Shopping Cart Icon" className="w-6 h-6" />
-                        <span className="font-semibold text-black">Shopping cart</span>
-                      </li>
-                      <li className="flex items-center space-x-2">
-                        <img src="/profile.svg" alt="Profile Icon" className="w-6 h-6" />
-                        <span className="font-semibold text-black">Profile</span>
-                      </li>
-                    </ul>
-                  </div>
-                )}
-              </>
-            ) : (
-              <div onClick={() => SetIsLoggedIn(!IsLoggedIn)}>
-                <Button size="small" variant="outline" color="primary" className="w-24">
-                  Login
-                </Button>
-              </div>
-            )}
-          </div>
-        </div>
+      className={twMerge(
+        'z-40 w-full border-b-2 border-primary py-5',
+        className,
       )}
+    >
+      <div className="container flex items-center justify-between">
+        {isMenuOpen && (
+          <Sidebar
+            toggleMobileMenu={toggleMobileMenu}
+            isLoggedIn={isLoggedIn}
+            setIsLoggedIn={setIsLoggedIn}
+            isSeller={isSeller}
+            setIsSeller={setIsSeller}
+          />
+        )}
+        <Logo />
+        <DesktopMenu />
+        <UserActions
+          isLoggedIn={isLoggedIn}
+          setIsLoggedIn={setIsLoggedIn}
+          isSeller={isSeller}
+          setIsSeller={setIsSeller}
+          toggleMobileMenu={toggleMobileMenu}
+        />
+      </div>
+    </nav>
+  );
+}
 
+function Sidebar({
+  toggleMobileMenu,
+  isLoggedIn,
+  isSeller,
+  setIsSeller,
+}: {
+  toggleMobileMenu: () => void;
+  isLoggedIn: boolean;
+  setIsLoggedIn: (value: boolean) => void;
+  isSeller: boolean;
+  setIsSeller: (value: boolean) => void;
+}) {
+  const sidebarRef = useRef<HTMLDivElement>(null);
 
-
-
-
-
-      <Link to="/" className="flex-shrink-0">
-        <img src="/images/logo-horizontal.svg" className="w-40" alt="logo" />
-      </Link>
-
-      {/* <div className={`flex-grow ${IsMenuOpen ? 'hidden lg:flex' : 'flex'}`}> */}
-      <ul className="flex items-center space-x-10">
-        <li className="text-sm font-semibold leading-normal text-black">
-          <Link to="/">Home</Link>
-        </li>
-        <li className="text-sm font-semibold leading-normal text-black">
-          <Link to="/shop">Shop</Link>
-        </li>
-        <li className="text-sm font-semibold leading-normal text-black">
-          <Link to="/about">About</Link>
-        </li>
-        <li className="text-sm font-semibold leading-normal text-black">
-          <Link to="/contact">Contact</Link>
-        </li>
+  useClickOutside(sidebarRef, () => {
+    toggleMobileMenu();
+  });
+  return (
+    <aside
+      ref={sidebarRef}
+      className="fixed left-0 top-0 z-50 h-full w-[250px] border-r-2 border-primary bg-white p-5 shadow-lg"
+    >
+      <button onClick={toggleMobileMenu} className="absolute right-4 top-4">
+        <Icon
+          icon="ci:close-big"
+          width="30"
+          height="30"
+          className="text-black"
+        />
+      </button>
+      <ul className="mt-10 flex flex-col items-start space-y-4">
+        <MenuItem to="/" label="Home" />
+        <MenuItem to="/shop" label="Shop" />
+        <MenuItem to="/about" label="About" />
+        <MenuItem to="/contact" label="Contact" />
       </ul>
 
-      <div className="flex items-center space-x-4">
-        {IsSeller && IsLoggedIn ? (
-          <img src="/sell.svg" alt="Sell" />
-        ) : (
-          <div onClick={() => SetIsSeller(!IsSeller)}>
-            <Button size="small" variant="solid" color="primary" className="w-24">
-              Sell
-            </Button>
-          </div>
-        )}
+      {isSeller && isLoggedIn ? (
+        <button className="btn btn-sm mt-5 flex w-full items-center justify-center gap-5">
+          <Icon icon="clarity:store-solid" className="size-8" />
+          <span className="text-xl-r font-medium">My Store</span>
+        </button>
+      ) : (
+        <button
+          onClick={() => setIsSeller(!isSeller)}
+          className="btn mt-5 w-full"
+        >
+          Sell
+        </button>
+      )}
+    </aside>
+  );
+}
 
-        {IsLoggedIn ? (
-          <>
-            {/* Wrap the icon and dropdown must in fragment */}
-            <Icon
-              icon="iconamoon:profile-circle"
-              width="64"
-              height="64"
-              className="h-10 w-10 rounded-full text-primary"
-              onClick={Toggoledropdown}
+function Logo() {
+  return (
+    <Link to="/">
+      <img
+        src="/images/logo-horizontal.svg"
+        className="w-40 min-w-28"
+        alt="logo"
+      />
+    </Link>
+  );
+}
+
+function DesktopMenu() {
+  return (
+    <ul className="hidden items-center space-x-10 lg:flex">
+      <MenuItem to="/" label="Home" />
+      <MenuItem to="/shop" label="Shop" />
+      <MenuItem to="/about" label="About" />
+      <MenuItem to="/contact" label="Contact" />
+    </ul>
+  );
+}
+
+function MenuItem({ to, label }: { to: string; label: string }) {
+  return (
+    <li className="text-base-r font-semibold text-charcoal">
+      <Link to={to}>{label}</Link>
+    </li>
+  );
+}
+
+function UserActions({
+  isLoggedIn,
+  setIsLoggedIn,
+  isSeller,
+  setIsSeller,
+  toggleMobileMenu,
+}: {
+  isLoggedIn: boolean;
+  setIsLoggedIn: (value: boolean) => void;
+  isSeller: boolean;
+  setIsSeller: (value: boolean) => void;
+  toggleMobileMenu: () => void;
+}) {
+  return (
+    <div className="flex items-center space-x-4">
+      {isSeller && isLoggedIn ? (
+        <button className="hidden lg:block">
+          <Icon icon="clarity:store-solid" className="size-10 text-primary" />
+        </button>
+      ) : (
+        <button
+          onClick={() => setIsSeller(!isSeller)}
+          className="btn hidden lg:block"
+        >
+          Sell
+        </button>
+      )}
+      {isLoggedIn ? (
+        <DropdownMenu className="h-10">
+          <DropdownMenu.Trigger>
+            <button className="h-10">
+              <Icon
+                icon="iconamoon:profile-circle"
+                className="size-10 rounded-full text-primary"
+              />
+            </button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content className="right-0 h-max gap-2 bg-secondary p-4">
+            <DropdownMenuItem
+              to="/cart"
+              iconSrc="/shopping_cart.svg"
+              label="Shopping Cart"
             />
+            <DropdownMenuItem
+              to="/wishlist"
+              iconSrc="/wishlist.svg"
+              label="Wishlist"
+            />
+            <DropdownMenuItem
+              to="/profile"
+              iconSrc="/profile.svg"
+              label="Profile"
+            />
+          </DropdownMenu.Content>
+        </DropdownMenu>
+      ) : (
+        <button
+          onClick={() => setIsLoggedIn(!isLoggedIn)}
+          className="lg:btn-md btn btn-outline btn-sm"
+        >
+          Login
+        </button>
+      )}
+      <button onClick={toggleMobileMenu} className="lg:hidden">
+        <Icon
+          icon="ic:round-menu"
+          width="40"
+          height="40"
+          className="text-primary"
+        />
+      </button>
+    </div>
+  );
+}
 
-            {IsDropDown && (
-              <div
-                className="flex mt-2 bg-[#F6F0E4] shadow-lg rounded-lg border border-[#E8E8E8] z-[1000] absolute right-[10px] top-[100px] p-4 dropdown"
-              >
-                <ul className="flex flex-col space-y-4">
-                  <li className="flex items-center space-x-2">
-                    <img src="/shopping_cart.svg" alt="Wishlist Icon" className="w-6 h-6" />
-                    <span className="font-semibold text-black">Wishlist</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <img src="/wishlist.svg" alt="Shopping Cart Icon" className="w-6 h-6" />
-                    <span className="font-semibold text-black">Shopping cart</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <img src="/profile.svg" alt="Profile Icon" className="w-6 h-6" />
-                    <span className="font-semibold text-black">Profile</span>
-                  </li>
-                </ul>
-              </div>
-            )}
-          </>
-        ) : (
-          <div onClick={() => SetIsLoggedIn(!IsLoggedIn)}>
-            <Button size="small" variant="outline" color="primary" className="w-24">
-              Login
-            </Button>
-          </div>
-        )}
-      </div>
-
-    </nav >
+function DropdownMenuItem({
+  to,
+  iconSrc,
+  label,
+}: {
+  to: string;
+  iconSrc: string;
+  label: string;
+}) {
+  return (
+    <DropdownMenu.Item className="w-full gap-4">
+      <Link to={to} className="flex w-full gap-4">
+        <img src={iconSrc} alt={`${label} Icon`} className="h-6 w-6" />
+        <span className="text-black font-semibold">{label}</span>
+      </Link>
+    </DropdownMenu.Item>
   );
 }
 
