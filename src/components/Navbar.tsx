@@ -188,7 +188,7 @@ function UserActions({
       ) : (
         <button
           onClick={() => setIsLoggedIn(!isLoggedIn)}
-          className="btn btn-outline btn-sm lg:btn-md"
+          className="lg:btn-md btn btn-outline btn-sm"
         >
           Login
         </button>
