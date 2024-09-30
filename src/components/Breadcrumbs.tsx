@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 type Breadcrumb = {
@@ -13,14 +12,14 @@ type BreadcrumbsProps = {
 export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) => {
   return (
     <nav aria-label="breadcrumb">
-      <ol style={{ display: 'flex', listStyle: 'none', padding: 0 }}>
+      <ol className='flex list-none p-0'>
         {breadcrumbs.map((breadcrumb, index) => (
-          <li key={index} style={{ display: 'flex', alignItems: 'center', marginRight: '8px' }}>
+          <li key={index} className='flex mr-8px items-center'>
             <Link to={breadcrumb.link}>
               <span>{breadcrumb.name.charAt(0).toUpperCase() + breadcrumb.name.slice(1)}</span>
             </Link>
             {index < breadcrumbs.length - 1 && (
-              <img src="/icon_Header.svg" alt="" className="mx-2" style={{  maxWidth: '100%' }} />
+              <img src="/icon_Header.svg" alt="" className="mx-2 w-full" />
             )}
           </li>
         ))}

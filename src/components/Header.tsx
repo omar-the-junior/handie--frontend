@@ -1,16 +1,22 @@
-import { Link } from "react-router-dom";
 import { Breadcrumbs } from "./Breadcrumbs";
 
-function Header() {
-    
-    const breadcrumbs = [
+interface Breadcrumb {
+    name: string;
+    link: string;
+}
+
+interface HeaderProps {
+    breadcrumbs?: Breadcrumb[];
+    pageName?: string;
+}
+
+function Header({ breadcrumbs: Breadcrumbs_prop, pageName: Pagename_prop }: HeaderProps) {
+    const breadcrumbs = Breadcrumbs_prop || [
         { name: 'Home', link: '/' },
         { name: 'Products', link: '/products' },
-        // { name: '', link: '/products/123' },
     ];
 
-    
-    const currentPageName = breadcrumbs[breadcrumbs.length - 1].name;
+    const currentPageName = Pagename_prop || breadcrumbs[breadcrumbs.length - 1].name;
 
     return (
         <div className="relative w-full h-[300px]">
@@ -38,8 +44,7 @@ function Header() {
                     {currentPageName}
                 </h1>
                 <div className="mt-2 text-sm flex items-center">
-                    
-                    <Breadcrumbs breadcrumbs={breadcrumbs} /> 
+                    <Breadcrumbs breadcrumbs={breadcrumbs} />
                     <img src="/icon_Header.svg" alt="" className="mx-2" />
                     <span
                         style={{
@@ -50,7 +55,7 @@ function Header() {
                             lineHeight: '16px',
                         }}
                     >
-                     {currentPageName}
+                        {currentPageName}
                     </span>
                 </div>
             </div>
