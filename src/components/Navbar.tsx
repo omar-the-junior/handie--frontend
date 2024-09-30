@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import DropdownMenu from './DropdownMenu';
 import { twMerge } from 'tailwind-merge';
+import useClickOutside from '../hooks/useClickOutside';
 
 function Navbar({ className }: { className?: string }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -56,8 +57,16 @@ function Sidebar({
   isSeller: boolean;
   setIsSeller: (value: boolean) => void;
 }) {
+  const sidebarRef = useRef<HTMLDivElement>(null);
+
+  useClickOutside(sidebarRef, () => {
+    toggleMobileMenu();
+  });
   return (
-    <aside className="fixed left-0 top-0 z-50 h-full w-[250px] border-r-2 border-primary bg-white p-5 shadow-lg">
+    <aside
+      ref={sidebarRef}
+      className="fixed left-0 top-0 z-50 h-full w-[250px] border-r-2 border-primary bg-white p-5 shadow-lg"
+    >
       <button onClick={toggleMobileMenu} className="absolute right-4 top-4">
         <Icon
           icon="ci:close-big"
