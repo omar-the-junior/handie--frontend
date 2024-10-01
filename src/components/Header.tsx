@@ -19,7 +19,7 @@ function Header({ breadcrumbs, pageName }: HeaderProps) {
         className="absolute inset-0 bg-cover bg-center blur-sm filter"
         style={{
           backgroundImage:
-            "linear-gradient(0deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 100%), url('/Header.png')",
+            "linear-gradient(0deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 100%), url('/images/Header.png')",
         }}
       ></div>
 
@@ -40,7 +40,7 @@ function Header({ breadcrumbs, pageName }: HeaderProps) {
         </h1>
         <div className="mt-2 flex items-center text-sm">
           <Breadcrumbs breadcrumbs={breadcrumbs} />
-          <img src="/icon_Header.svg" alt="" className="mx-2" />
+          <img src="/icons/icon_Header.svg" alt="" className="mx-2" />
           <span
             style={{
               color: 'var(--Ink-Dark, #252A31)',

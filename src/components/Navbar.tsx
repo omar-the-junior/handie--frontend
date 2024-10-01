@@ -170,17 +170,17 @@ function UserActions({
           <DropdownMenu.Content className="right-0 h-max gap-2 bg-secondary p-4">
             <DropdownMenuItem
               to="/cart"
-              iconSrc="/shopping_cart.svg"
+              iconSrc="/icons/shopping_cart.svg"
               label="Shopping Cart"
             />
             <DropdownMenuItem
               to="/wishlist"
-              iconSrc="/wishlist.svg"
+              iconSrc="/icons/wishlist.svg"
               label="Wishlist"
             />
             <DropdownMenuItem
               to="/profile"
-              iconSrc="/profile.svg"
+              iconSrc="/icons/profile.svg"
               label="Profile"
             />
           </DropdownMenu.Content>
@@ -188,7 +188,7 @@ function UserActions({
       ) : (
         <button
           onClick={() => setIsLoggedIn(!isLoggedIn)}
-          className="lg:btn-md btn btn-outline btn-sm"
+          className="btn btn-outline btn-sm lg:btn-md"
         >
           Login
         </button>
