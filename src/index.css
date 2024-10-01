@@ -3,7 +3,7 @@
 @tailwind utilities;
 @layer base {
   input[type='file'] {
-    @apply border-none px-0 text-sm text-primary shadow-none file:mr-4 file:cursor-pointer file:rounded-full file:border-0 file:bg-primary file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-accent focus:outline-none;
+    @apply text-lg-r border-none px-0 text-primary shadow-none file:mr-4 file:cursor-pointer file:rounded-full file:border-0 file:bg-primary file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-accent focus:outline-none;
   }
 
   input[type='color'] {
@@ -16,5 +16,13 @@
   }
   input[type='checkbox'] {
     @apply rounded;
+  }
+
+  select {
+    @apply text-lg-r appearance-none rounded-md border-charcoal bg-transparent px-5 py-2.5 text-charcoal shadow-none focus:border-primary focus:ring-primary;
+  }
+
+  textarea {
+    @apply text-lg-r appearance-none rounded-md border-charcoal bg-transparent px-5 py-2.5 text-charcoal shadow-none focus:border-primary focus:ring-primary;
   }
 }

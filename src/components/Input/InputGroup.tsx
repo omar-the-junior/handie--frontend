@@ -15,7 +15,7 @@ const InputGroup = ({ label, error, children, className }: InputGroupProps) => {
       {label && (
         <label
           htmlFor={children.props.id}
-          className="font-poppins text-sm font-semibold text-charcoal"
+          className="text-base-r font-poppins font-semibold text-charcoal"
         >
           {label}
         </label>

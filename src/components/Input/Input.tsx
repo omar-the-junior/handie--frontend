@@ -9,7 +9,7 @@ export interface InputProps
 }
 
 const baseClasses =
-  'shadow-sm text-sm font-medium font-poppins ring-primary focus:outline-none placeholder:font-medium placeholder:text-neutral';
+  'shadow-sm text-lg-r px-5 py-2.5 font-medium font-poppins ring-primary focus:outline-none placeholder:font-medium placeholder:text-neutral';
 
 const variantClasses = {
   rounded:
