@@ -21,7 +21,7 @@ function Contact() {
               <div className="flex flex-row gap-8 lg:w-full">
                 <img
                   className="self-start"
-                  src="/customer_support_logo.svg"
+                  src="/icons/customer_support_logo.svg"
                   alt="icon_customer_support"
                 />
                 <div className="flex flex-col">
@@ -39,7 +39,7 @@ function Contact() {
               <div className="flex flex-row gap-8 lg:w-full">
                 <img
                   className="self-start"
-                  src="/email_icon.svg"
+                  src="icons/email_icon.svg"
                   alt="email_logo"
                 ></img>
                 <div className="flex flex-col">
