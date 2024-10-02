@@ -7,6 +7,7 @@ import Root from './routes/Root';
 import ErrorPage from './ErrorPage';
 import Login from './routes/Login';
 import Signup from './routes/Signup';
+import Checkout from './routes/Checkout';
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ export const router = createBrowserRouter([
       {
         path: 'signup',
         element: <Signup />,
+      },
+      {
+        path: 'checkout',
+        element: <Checkout />,
       },
     ],
   },
