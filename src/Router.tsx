@@ -8,6 +8,7 @@ import ErrorPage from './ErrorPage';
 import Login from './routes/Login';
 import Signup from './routes/Signup';
 import Checkout from './routes/Checkout';
+import Userprofile from './routes/Userprofile';
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
       {
         path: 'checkout',
         element: <Checkout />,
+      },
+      {
+        path: 'userprofile',
+        element: <Userprofile />,
       },
     ],
   },
