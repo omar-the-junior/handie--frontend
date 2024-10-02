@@ -39,7 +39,6 @@ const Footer = () => {
                 </li>
               </ul>
             </div>
-
             {/* help */}
             <div className="md:gap-12 flex flex-col gap-7">
               <h3 className="text-base-r font-semibold text-charcoal">Help</h3>
