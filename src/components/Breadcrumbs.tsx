@@ -1,26 +1,34 @@
 import { Link } from 'react-router-dom';
 
-type Breadcrumb = {
+export type Breadcrumb = {
   name: string;
-  link: string;
+  link?: string;
 };
 
-type BreadcrumbsProps = {
+export type BreadcrumbsProps = {
   breadcrumbs: Breadcrumb[];
 };
 
 export const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps) => {
+  const isBold = (index: number) => {
+    return index == breadcrumbs.length - 1 ? 'font-semibold' : 'font-normal';
+  };
+
   return (
     <nav aria-label="breadcrumb">
       <ol className="flex list-none p-0">
         {breadcrumbs.map((breadcrumb, index) => (
-          <li key={index} className="mr-8px flex items-center">
-            <Link to={breadcrumb.link}>
-              <span>
-                {breadcrumb.name.charAt(0).toUpperCase() +
-                  breadcrumb.name.slice(1)}
-              </span>
-            </Link>
+          <li
+            key={index}
+            className={`mr-8px flex items-center ${isBold(index)}`}
+          >
+            {breadcrumb.link ? (
+              <Link to={breadcrumb.link}>
+                <>{breadcrumb.name}</>
+              </Link>
+            ) : (
+              <>{breadcrumb.name}</>
+            )}
             {index < breadcrumbs.length - 1 && (
               <img
                 src="/icons/icon_Header.svg"

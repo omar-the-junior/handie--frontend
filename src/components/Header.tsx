@@ -1,12 +1,7 @@
-import { Breadcrumbs } from './Breadcrumbs';
-
-interface Breadcrumb {
-  name: string;
-  link: string;
-}
+import { Breadcrumbs, BreadcrumbsProps } from './Breadcrumbs';
 
 interface HeaderProps {
-  breadcrumbs: Breadcrumb[];
+  breadcrumbs: BreadcrumbsProps['breadcrumbs'];
   pageName?: string;
 }
 
@@ -14,45 +9,17 @@ function Header({ breadcrumbs, pageName }: HeaderProps) {
   const currentPageName = pageName || breadcrumbs[breadcrumbs.length - 1].name;
 
   return (
-    <div className="relative h-[300px] w-full">
-      <div
-        className="absolute inset-0 bg-cover bg-center blur-sm filter"
-        style={{
-          backgroundImage:
-            "linear-gradient(0deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 100%), url('/images/Header.png')",
-        }}
-      ></div>
+    <div className="relative h-80 w-full">
+      <img
+        className="absolute h-full w-full object-cover object-center"
+        src="/images/Header.png"
+      />
 
       <div className="relative z-10 flex h-full flex-col items-center justify-center">
-        <h1
-          className="text-4xl font-bold"
-          style={{
-            color: '#000',
-            textAlign: 'center',
-            fontFamily: 'Poppins, sans-serif',
-            fontSize: '48px',
-            fontStyle: 'normal',
-            fontWeight: 600,
-            lineHeight: 'normal',
-          }}
-        >
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
+        <h1 className="h2 mt-4 text-center text-4xl font-semibold text-charcoal">
           {currentPageName}
         </h1>
-        <div className="mt-2 flex items-center text-sm">
-          <Breadcrumbs breadcrumbs={breadcrumbs} />
-          <img src="/icons/icon_Header.svg" alt="" className="mx-2" />
-          <span
-            style={{
-              color: 'var(--Ink-Dark, #252A31)',
-              fontFamily: 'Poppins, sans-serif',
-              fontSize: '16px',
-              fontWeight: '600',
-              lineHeight: '16px',
-            }}
-          >
-            {currentPageName}
-          </span>
-        </div>
       </div>
     </div>
   );
