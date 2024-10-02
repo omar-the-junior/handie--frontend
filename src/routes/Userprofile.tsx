@@ -4,11 +4,11 @@ const UserProfile = () => {
   return (
     <div className="bg-white">
       <div className="container mx-auto px-4 py-32">
-        <div className="h4 mb-9 text-left font-semibold text-primary">
+        <h1 className="h4 mb-9 text-left font-semibold text-primary">
           Edit Your Profile
-        </div>
+        </h1>
         <form className="w-full">
-          <div className="flex w-full flex-col gap-5 md:flex-row">
+          <div className="flex w-full flex-col gap-5 sm:flex-row">
             <InputGroup className="flex-1" label="First Name">
               <Input id="first-name" variant="rounded" placeholder="John" />
             </InputGroup>
@@ -17,11 +17,12 @@ const UserProfile = () => {
             </InputGroup>
           </div>
 
-          <div className="mt-6 flex w-full flex-col gap-5 md:flex-row">
+          <div className="mt-6 flex w-full flex-col gap-5 sm:flex-row">
             <InputGroup className="flex-1" label="Email">
               <Input
                 id="email"
                 variant="rounded"
+                type="email"
                 placeholder="johndoe@example.com"
               />
             </InputGroup>
@@ -29,6 +30,7 @@ const UserProfile = () => {
               <Input
                 id="address"
                 variant="rounded"
+                type="email"
                 placeholder="Your address"
               />
             </InputGroup>
@@ -39,6 +41,7 @@ const UserProfile = () => {
               <Input
                 id="change password"
                 variant="rounded"
+                type="password"
                 placeholder="current password"
               />
             </InputGroup>
@@ -46,6 +49,7 @@ const UserProfile = () => {
               <Input
                 id="New password"
                 variant="rounded"
+                type="password"
                 placeholder="New password"
               />
             </InputGroup>
@@ -53,6 +57,7 @@ const UserProfile = () => {
               <Input
                 id="Repeat New password"
                 variant="rounded"
+                type="password"
                 placeholder="Repeat New password"
               />
             </InputGroup>

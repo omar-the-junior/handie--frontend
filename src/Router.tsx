@@ -45,7 +45,7 @@ export const router = createBrowserRouter([
         element: <Checkout />,
       },
       {
-        path: 'userprofile',
+        path: 'profile',
         element: <Userprofile />,
       },
     ],
