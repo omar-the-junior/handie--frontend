@@ -23,6 +23,6 @@
   }
 
   textarea {
-    @apply text-lg-r appearance-none rounded-md border-charcoal bg-transparent px-5 py-2.5 text-charcoal shadow-none focus:border-primary focus:ring-primary;
+    @apply text-lg-r appearance-none rounded-md border-charcoal bg-transparent px-5 py-2.5 font-medium text-charcoal shadow-none focus:border-primary focus:ring-primary;
   }
 }

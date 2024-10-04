@@ -77,12 +77,11 @@ function Contact() {
                   />
                 </InputGroup>
                 <InputGroup label="Message">
-                  <Input
-                    id="Message"
-                    variant="rounded"
-                    className="h-[150px]"
-                    placeholder="Some text ......"
-                  />
+                  <textarea
+                    id="message"
+                    placeholder="Your Message"
+                    rows={5}
+                  ></textarea>
                 </InputGroup>
                 <button className="btn w-full">Submit</button>
               </form>
