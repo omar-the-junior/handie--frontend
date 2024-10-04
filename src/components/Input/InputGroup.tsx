@@ -1,11 +1,10 @@
 import { ReactElement } from 'react';
-import { InputProps } from './Input';
 import { twMerge } from 'tailwind-merge';
 
 export interface InputGroupProps {
   label?: string;
   error?: string;
-  children: ReactElement<InputProps>;
+  children: ReactElement;
   className?: string;
 }
 
