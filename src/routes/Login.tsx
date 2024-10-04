@@ -13,16 +13,13 @@ function Login() {
         />
 
         <div className="w-full md:max-w-lg">
-          <h1 className="h3 mb-4 font-bold text-primary">
-            Welcome to Your Handmade Marketplace
-          </h1>
+          <h1 className="h3 mb-4 font-bold text-primary">Welcome Back!</h1>
           <p className="mb-8 text-charcoal">
-            Login with your account to buy or sell products.
+            Explore Unique Handmade Creations
           </p>
 
           <form className="grid gap-10">
-           
-              <InputGroup>
+            <InputGroup>
               <Input
                 id="email"
                 variant="simple"
@@ -39,7 +36,6 @@ function Login() {
                 placeholder="Password"
               />
             </InputGroup>
-
 
             <button className="btn mt-12 w-full">Login</button>
             <div className="flex items-center">
