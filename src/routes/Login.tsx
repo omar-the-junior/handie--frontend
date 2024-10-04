@@ -2,73 +2,58 @@ import { Input, InputGroup } from '../components/Input';
 
 function Login() {
   return (
-    <div className="mx-auto max-w-lg rounded-lg bg-white p-8 shadow-lg">
-      <h1 className="mb-6 text-2xl font-bold">User Registration Form</h1>
-      <form>
-        <InputGroup
-          label="Full Name"
-          className="mb-4"
-          error="Full Name is required"
-        >
-          <Input id="fullName" placeholder="Enter your full name" />
-        </InputGroup>
-        <InputGroup label="Age" className="mb-4" error="Age is required">
-          <Input id="age" type="number" placeholder="Enter your age" />
-        </InputGroup>
-        <InputGroup label="Email" className="mb-4" error="Email is required">
-          <Input id="email" type="email" placeholder="Enter your email" />
-        </InputGroup>
-        <InputGroup
-          label="Password"
-          className="mb-4"
-          error="Password is required"
-        >
-          <Input
-            id="password"
-            type="password"
-            placeholder="Enter your password"
-          />
-        </InputGroup>
-        <InputGroup
-          label="Repeat Password"
-          className="mb-4"
-          error="Repeat Password is required"
-        >
-          <Input
-            id="repeatPassword"
-            type="password"
-            placeholder="Repeat your password"
-          />
-        </InputGroup>
-        <InputGroup
-          label="Upload Image"
-          className="mb-4"
-          error="Image is required"
-        >
-          <Input id="image" type="file" />
-        </InputGroup>
-        <InputGroup
-          label="Upload Image"
-          className="mb-4"
-          error="Image is required"
-        >
-          <Input id="image" type="mul" />
-        </InputGroup>
-        <select name="cars" id="cars">
-          <option value="volvo">Volvo</option>
-          <option value="BMW">BMW</option>
-          <option value="mercedes">Mercedes</option>
-          <option value="audi">Audi</option>
-        </select>
+    <div className="py-8">
+      <div className="container grid place-items-center gap-8 lg:grid-cols-2">
+        <img
+          className="hidden max-h-[713px] w-full rounded-md lg:block"
+          src="/images/login.png"
+          alt="Handmade Marketplace"
+          height="713"
+          width="535"
+        />
 
-        <textarea name="somearea" id=""></textarea>
-        <button
-          type="submit"
-          className="rounded-lg bg-primary px-4 py-2 font-semibold text-white hover:bg-accent focus:outline-none"
-        >
-          Submit
-        </button>
-      </form>
+        <div className="w-full md:max-w-lg">
+          <h1 className="h3 mb-4 font-bold text-primary">
+            Welcome to Your Handmade Marketplace
+          </h1>
+          <p className="mb-8 text-charcoal">
+            Login with your account to buy or sell products.
+          </p>
+
+          <form className="grid gap-10">
+           
+              <InputGroup>
+              <Input
+                id="email"
+                variant="simple"
+                type="email"
+                placeholder="Email"
+              />
+            </InputGroup>
+
+            <InputGroup>
+              <Input
+                id="password"
+                variant="simple"
+                type="password"
+                placeholder="Password"
+              />
+            </InputGroup>
+
+
+            <button className="btn mt-12 w-full">Login</button>
+            <div className="flex items-center">
+              <span className="text-sm">Create account?</span>
+              <a
+                href="/Signup"
+                className="ml-1 text-sm font-bold text-primary hover:underline"
+              >
+                Sign Up
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }
