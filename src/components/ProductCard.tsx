@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Stars from './Stars';
 import { Icon } from '@iconify/react';
 import Badge from './Badge';
+import { twMerge } from 'tailwind-merge';
 
 export type ProductCardProps = {
   productName: string;
@@ -11,6 +12,7 @@ export type ProductCardProps = {
   imageSrc: string;
   isNew?: boolean;
   discount?: number;
+  className?: string;
 };
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -21,13 +23,17 @@ const ProductCard: React.FC<ProductCardProps> = ({
   imageSrc,
   isNew,
   discount = 50,
+  className,
 }) => {
   const discountedPrice = discount ? price - (price * discount) / 100 : price;
   const [hidden, setHidden] = useState(true);
 
   return (
     <div
-      className="relative flex h-[462px] w-[300px] flex-col items-start justify-center rounded-md bg-secondary shadow-[0_2px_15px_5px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-secondary"
+      className={twMerge(
+        'relative flex flex-col items-start justify-center rounded-md bg-secondary shadow-[0_2px_15px_5px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-secondary',
+        className,
+      )}
       onMouseEnter={() => setHidden(false)}
       onMouseLeave={() => setHidden(true)}
     >
@@ -66,7 +72,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             icon="solar:user-circle-linear"
             width="28"
             height="28"
-            className="mr-2 text-black"
+            className="text-black mr-2"
           />
           <p className="text-[16px] font-medium leading-[24px] text-[#898989]">
             {sellerName}
