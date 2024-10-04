@@ -71,7 +71,7 @@ const Shop = () => {
   return (
     <>
       <Header breadcrumbs={breadcrumbs} />
-      <search className="flex gap-9 bg-secondary py-3">
+      <search className="flex gap-9 bg-secondary py-6">
         <form className="container flex flex-col items-center gap-9 md:flex md:flex-row">
           <label
             htmlFor="search"
