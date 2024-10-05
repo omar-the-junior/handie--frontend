@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Input, InputGroup } from '../components/Input';
 
 function Login() {
@@ -5,10 +6,10 @@ function Login() {
     <div className="py-8">
       <div className="container grid place-items-center gap-8 lg:grid-cols-2">
         <img
-          className="hidden max-h-[713px] w-full rounded-md lg:block"
+          className="hidden max-h-[564px] w-full rounded-md lg:block"
           src="/images/login.png"
           alt="Handmade Marketplace"
-          height="713"
+          height="564"
           width="535"
         />
 
@@ -40,12 +41,12 @@ function Login() {
             <button className="btn mt-12 w-full">Login</button>
             <div className="flex items-center">
               <span className="text-sm">Create account?</span>
-              <a
-                href="/Signup"
+              <Link
+                to="/Signup"
                 className="ml-1 text-sm font-bold text-primary hover:underline"
               >
                 Sign Up
-              </a>
+              </Link>
             </div>
           </form>
         </div>
