@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Input, InputGroup } from '../components/Input';
 
 function Signup() {
@@ -60,12 +61,12 @@ function Signup() {
             <button className="btn mt-12 w-full">Sign up</button>
             <div className="flex items-center">
               <span className="text-sm">Already have an account?</span>
-              <a
-                href="/login"
+              <Link
+                to="/login"
                 className="ml-1 text-sm font-bold text-primary hover:underline"
               >
                 Login
-              </a>
+              </Link>
             </div>
           </form>
         </div>
