@@ -17,6 +17,8 @@ export default {
       'light-green': '#2EC1AC',
       gray: '#B3B3B3',
       whisper: '#F5F5F5',
+      'light-secondary':'#F9F1E7',
+      Netural:'#8C8C8C',
     },
     screens: {
       sm: '640px',
