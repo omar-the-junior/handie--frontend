@@ -1,12 +1,13 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
-import FormGroup from './FormGroup';
+import FormGroup from '../components/FormGroup';
+import { Input, InputGroup } from '../components/Input';
 
 export default function BecomeSeller() {
   const image = '/icons/online-store-10 1.svg';
 
   return (
     <div className="bg-background flex flex-col gap-14 py-8 md:py-14">
-      <div className="container mx-auto flex flex-col px-4">
+      <div className="container mx-auto flex flex-col">
         <div className="flex flex-col items-center lg:flex-row lg:justify-between">
           <div className="w-full max-w-md lg:w-1/2">
             <img
@@ -40,78 +41,49 @@ export default function BecomeSeller() {
             Complete Your Seller Profile
           </h2>
           <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
-            <FormGroup title="Business Details">
-              <div className="space-y-4">
-                <div>
-                  <label
-                    htmlFor="businessName"
-                    className="text-gray-700 mb-1 block text-sm font-medium"
-                  >
-                    Business Name (Optional)
-                  </label>
-                  <input
-                    type="text"
-                    id="businessName"
-                    name="businessName"
-                    placeholder="Handmade store"
-                    className="border-gray-300 w-full rounded-md border px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-primary"
+            <FormGroup title="Business Details" className="space-y-4">
+              <InputGroup label="Business Name">
+                <Input
+                  type="text"
+                  id="businessName"
+                  name="businessName"
+                  placeholder="Handmade store"
+                />
+              </InputGroup>
+
+              <InputGroup label="Short Business Description">
+                <textarea
+                  id="description"
+                  name="description"
+                  rows={4}
+                  placeholder="Description"
+                  required
+                ></textarea>
+              </InputGroup>
+
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <InputGroup label="Business Email">
+                  <Input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="johndoe@example.com"
+                    required
                   />
-                </div>
-                <div>
-                  <label
-                    htmlFor="description"
-                    className="text-gray-700 mb-1 block text-sm font-medium"
-                  >
-                    Short Business Description
-                  </label>
-                  <textarea
-                    id="description"
-                    name="description"
-                    rows={4}
-                    placeholder="Description"
-                    className="border-gray-300 w-full rounded-md border px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-primary"
-                  ></textarea>
-                </div>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="text-gray-700 mb-1 block text-sm font-medium"
-                    >
-                      Business Email
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      placeholder="johndoe@example.com"
-                      className="border-gray-300 w-full rounded-md border px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-primary"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="phone"
-                      className="text-gray-700 mb-1 block text-sm font-medium"
-                    >
-                      Phone number
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      placeholder="+20"
-                      className="border-gray-300 w-full rounded-md border px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-primary"
-                      required
-                    />
-                  </div>
-                </div>
+                </InputGroup>
+
+                <InputGroup label="Phone number">
+                  <Input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="+20"
+                    required
+                  />
+                </InputGroup>
               </div>
             </FormGroup>
-            <button
-              type="submit"
-              className="w-full rounded-md bg-primary px-4 py-3 font-semibold text-white transition-colors hover:bg-primary/90"
-            >
+            <button type="submit" className="btn btn-lg w-full">
               Become a Seller
             </button>
           </form>

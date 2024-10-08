@@ -10,6 +10,7 @@ import Signup from './routes/Signup';
 import Checkout from './routes/Checkout';
 import Userprofile from './routes/Userprofile';
 import Cart from './routes/Cart';
+import BecomeSeller from './routes/BecomeSeller';
 
 export const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ export const router = createBrowserRouter([
       {
         path: 'cart',
         element: <Cart />,
+      },
+      {
+        path: 'become-seller',
+        element: <BecomeSeller />,
       },
     ],
   },

@@ -1,14 +1,14 @@
-import { ReactNode } from 'react';
+import { ReactNode, FieldsetHTMLAttributes } from 'react';
 
-interface FormGroupProps {
+interface FormGroupProps extends FieldsetHTMLAttributes<HTMLFieldSetElement> {
   title: string;
   children: ReactNode;
 }
 
-function FormGroup({ title, children }: FormGroupProps) {
+function FormGroup({ title, children, className, ...props }: FormGroupProps) {
   return (
-    <fieldset className="mb-6">
-      <legend className="mb-4 text-xl font-semibold">{title}</legend>
+    <fieldset className={className} {...props}>
+      <legend className="h4 font-semibold">{title}</legend>
       {children}
     </fieldset>
   );
