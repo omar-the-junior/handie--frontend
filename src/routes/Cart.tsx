@@ -1,8 +1,15 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+type CartItem = {
+  id: number;
+  imageSrc: string;
+  price: number;
+  name: string;
+  quantity: number;
+};
 
-const cartItems: any[] = [
+const cartItems: CartItem[] = [
   {
     id: 1,
     imageSrc:
@@ -12,24 +19,6 @@ const cartItems: any[] = [
     quantity: 1,
   },
   {
-    id: 1,
-    imageSrc:
-      'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    price: 15000,
-    name: 'Sofa',
-    quantity: 1,
-  },
-  {
-    id: 1,
-    imageSrc:
-      'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    price: 15000,
-    name: 'Sofa',
-    quantity: 1,
-  },
-  {
-
-    
     id: 1,
     imageSrc:
       'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
@@ -45,14 +34,14 @@ function Cart() {
     0,
   );
 
- 
   return (
-    <div className="container flex flex-col items-start justify-between gap-10 py-16 md:flex-row">
+    <div className="grid grid-cols-1 items-start justify-between container  py-16 ">
+
       {cartItems.length === 0 ? (
         <div className="ml-auto mr-auto flex flex-col justify-center">
           <h2 className="text-3xl font-bold text-primary">Cart is empty</h2>
           <img
-            src="/images/cart_imgae.jpg"
+            src="/images/Empty_cart.svg"
             alt="Empty cart "
             className="mb-4"
           />
@@ -74,7 +63,7 @@ function Cart() {
             ))}
           </div>
 
-          <div className="w-full rounded-2xl bg-light-secondary p-6 md:mt-0 md:w-1/3">
+          <div className="w-full rounded-2xl bg-secondary p-6 md:mt-0 md:w-1/3">
             {cartItems.map((item) => (
               <div
                 key={item.id}
@@ -89,7 +78,6 @@ function Cart() {
               <span className="text-xl text-primary">Rs. {totalPrice}</span>
             </div>
             <button className="btn mt-11 w-full">Checkout</button>
-            
           </div>
         </>
       )}
@@ -139,32 +127,23 @@ function CartItem({ name, price, quantity, imageSrc }: CartItemProps) {
               </div>
             </div>
 
-            <div className="flex items-center">
-
-              <div className='gap-5 flex mr-12'>
-              <p className='text-lg font-bold'>Quantity</p>
-              <button className="font-bold px-2 py-1" >-</button>
-              <span className="mx-2 px-5 pt-1 border border-charcoal text-Netural">{quantity}</span>
-              <button className="font-bold px-2 py-1">+</button>
+            {/* <div className="flex items-center">
+              <div className="mr-12 flex gap-5">
+                <p className="text-lg font-bold">Quantity</p>
+                <button className="px-2 py-1 font-bold">-</button>
+                <span className="mx-2 border border-charcoal px-5 pt-1 text-Netural">
+                  {quantity}
+                </span>
+                <button className="px-2 py-1 font-bold">+</button>
               </div>
-
-
-              
-              <img
-                src="/images/Trash.svg"
-                alt="trash icon"
+              <Icon
+                icon="solar:trash-bin-trash-bold-duotone"
+                className="size-11 text-gray"
               />
-
-
-            </div>
-
+            </div> */}
           </div>
-          
         </div>
-    
-
       </div>
-    
     </div>
   );
 }
