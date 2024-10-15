@@ -5,6 +5,8 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { postData } from '../utils/api';
 import { router } from '../Router';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../store/store';
 
 const schema = z.object({
   email: z.string().email(),
@@ -14,6 +16,8 @@ const schema = z.object({
 type FormField = z.infer<typeof schema>;
 
 function Login() {
+  const dispatch = useDispatch<AppDispatch>();
+
   const {
     register,
     setError,
