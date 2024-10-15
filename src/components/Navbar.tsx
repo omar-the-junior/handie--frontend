@@ -5,6 +5,10 @@ import DropdownMenu from './DropdownMenu';
 import { twMerge } from 'tailwind-merge';
 import useClickOutside from '../hooks/useClickOutside';
 
+
+
+
+
 function Navbar({ className }: { className?: string }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSeller, setIsSeller] = useState(false);

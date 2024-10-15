@@ -1,7 +1,44 @@
-import { Link } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import { Input, InputGroup } from '../components/Input';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { postData } from '../utils/api';
+import { router } from '../Router';
+
+const schema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+});
+
+type FormField = z.infer<typeof schema>;
 
 function Login() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormField>({
+    defaultValues: { email: '', password: '' },
+    resolver: zodResolver(schema),
+  });
+
+  const onSubmit: SubmitHandler<FormField> = async (data) => {
+    try {
+      const { email, password } = data;
+
+      const response = await postData('/auth/login', {
+        email,
+        password,
+      });
+
+      console.log('Login response:', response);
+      router.navigate('/');
+    } catch (error) {
+      console.error('Login failed:', error);
+    }
+  };
+
   return (
     <div className="py-8">
       <div className="container grid place-items-center gap-8 lg:grid-cols-2">
@@ -19,26 +56,34 @@ function Login() {
             Explore Unique Handmade Creations
           </p>
 
-          <form className="grid gap-10">
-            <InputGroup>
+          <form className="grid gap-10" onSubmit={handleSubmit(onSubmit)}>
+            <InputGroup error={errors.email?.message}>
               <Input
                 id="email"
                 variant="simple"
-                type="email"
+                type="text"
                 placeholder="Email"
+                {...register('email')}
               />
             </InputGroup>
 
-            <InputGroup>
+            <InputGroup error={errors.password?.message}>
               <Input
                 id="password"
                 variant="simple"
                 type="password"
                 placeholder="Password"
+                {...register('password')}
               />
             </InputGroup>
 
-            <button className="btn mt-12 w-full">Login</button>
+            <button
+              type="submit"
+              className="btn mt-12 w-full"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Loading...' : 'Login'}
+            </button>
             <div className="flex items-center">
               <span className="text-sm">Create account?</span>
               <Link
@@ -54,4 +99,5 @@ function Login() {
     </div>
   );
 }
+
 export default Login;
