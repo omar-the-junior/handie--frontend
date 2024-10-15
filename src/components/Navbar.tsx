@@ -5,6 +5,10 @@ import DropdownMenu from './DropdownMenu';
 import { twMerge } from 'tailwind-merge';
 import useClickOutside from '../hooks/useClickOutside';
 
+
+
+
+
 function Navbar({ className }: { className?: string }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSeller, setIsSeller] = useState(false);
@@ -49,7 +53,6 @@ function Sidebar({
   toggleMobileMenu,
   isLoggedIn,
   isSeller,
-  setIsSeller,
 }: {
   toggleMobileMenu: () => void;
   isLoggedIn: boolean;
@@ -88,12 +91,9 @@ function Sidebar({
           <span className="text-xl-r font-medium">My Store</span>
         </button>
       ) : (
-        <button
-          onClick={() => setIsSeller(!isSeller)}
-          className="btn mt-5 w-full"
-        >
+        <Link to="/become-seller" className="btn mt-5 w-full">
           Sell
-        </button>
+        </Link>
       )}
     </aside>
   );
@@ -132,9 +132,7 @@ function MenuItem({ to, label }: { to: string; label: string }) {
 
 function UserActions({
   isLoggedIn,
-  setIsLoggedIn,
   isSeller,
-  setIsSeller,
   toggleMobileMenu,
 }: {
   isLoggedIn: boolean;
@@ -150,12 +148,9 @@ function UserActions({
           <Icon icon="clarity:store-solid" className="size-10 text-primary" />
         </button>
       ) : (
-        <button
-          onClick={() => setIsSeller(!isSeller)}
-          className="btn hidden lg:block"
-        >
+        <Link to="/become-seller" className="btn hidden lg:block">
           Sell
-        </button>
+        </Link>
       )}
       {isLoggedIn ? (
         <DropdownMenu className="h-10">
@@ -186,12 +181,9 @@ function UserActions({
           </DropdownMenu.Content>
         </DropdownMenu>
       ) : (
-        <button
-          onClick={() => setIsLoggedIn(!isLoggedIn)}
-          className="btn btn-outline btn-sm lg:btn-md"
-        >
+        <Link to="/login" className="btn btn-outline btn-sm lg:btn-md">
           Login
-        </button>
+        </Link>
       )}
       <button onClick={toggleMobileMenu} className="lg:hidden">
         <Icon

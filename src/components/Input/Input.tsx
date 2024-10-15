@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 export interface InputProps
@@ -20,14 +20,14 @@ const variantClasses = {
     'border-0 shadow-none focus:ring-transparent focus:border-transparent p-0',
 };
 
-const Input = ({
-  variant = 'rounded',
-  className,
-  id,
-  ...props
-}: InputProps) => {
-  const inputClasses = twMerge(baseClasses, variantClasses[variant], className);
-  return <input id={id} className={inputClasses} {...props} />;
-};
+// Forward ref to the underlying input element
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ variant = 'rounded', className, id, ...props }, ref) => {
+    const inputClasses = twMerge(baseClasses, variantClasses[variant], className);
+    return <input id={id} ref={ref} className={inputClasses} {...props} />;
+  }
+);
+
+Input.displayName = 'Input';
 
 export default Input;
