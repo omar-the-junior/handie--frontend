@@ -1,4 +1,4 @@
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Input, InputGroup } from '../components/Input';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -16,6 +16,7 @@ type FormField = z.infer<typeof schema>;
 function Login() {
   const {
     register,
+    setError,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<FormField>({
@@ -27,15 +28,19 @@ function Login() {
     try {
       const { email, password } = data;
 
-      const response = await postData<{token:string} , FormField>('/auth/login', {
-        email,
-        password,
-      });
+      const response = await postData<{ token: string }, FormField>(
+        '/auth/login',
+        {
+          email,
+          password,
+        },
+      );
 
       localStorage.setItem('token', response.token);
       router.navigate('/');
     } catch (error) {
       console.error('Login failed:', error);
+      setError('root', { message: 'Invalid email or password' });
     }
   };
 
@@ -57,6 +62,9 @@ function Login() {
           </p>
 
           <form className="grid gap-10" onSubmit={handleSubmit(onSubmit)}>
+            <p className="text-sm font-medium text-error">
+              {errors.root?.message}{' '}
+            </p>
             <InputGroup error={errors.email?.message}>
               <Input
                 id="email"
