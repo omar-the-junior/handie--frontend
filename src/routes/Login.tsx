@@ -63,7 +63,7 @@ function Login() {
 
           <form className="grid gap-10" onSubmit={handleSubmit(onSubmit)}>
             <p className="text-sm font-medium text-error">
-              {errors.root?.message}{' '}
+              {errors.root?.message}
             </p>
             <InputGroup error={errors.email?.message}>
               <Input
