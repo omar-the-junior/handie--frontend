@@ -27,12 +27,12 @@ function Login() {
     try {
       const { email, password } = data;
 
-      const response = await postData('/auth/login', {
+      const response = await postData<{token:string} , FormField>('/auth/login', {
         email,
         password,
       });
 
-      console.log('Login response:', response);
+      localStorage.setItem('token', response.token);
       router.navigate('/');
     } catch (error) {
       console.error('Login failed:', error);
