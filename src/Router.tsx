@@ -11,6 +11,7 @@ import Checkout from './routes/Checkout';
 import Userprofile from './routes/Userprofile';
 import Cart from './routes/Cart';
 import BecomeSeller from './routes/BecomeSeller';
+import SingleProduct from './routes/SingleProduct';
 
 export const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
       {
         path: 'become-seller',
         element: <BecomeSeller />,
+      },
+      {
+        path: 'singleproduct',
+        element: <SingleProduct />,
       },
     ],
   },
