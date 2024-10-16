@@ -1,17 +1,15 @@
 import axios from 'axios';
 import { LoginCredentials, AuthResponse, RefreshResponse } from '../types/auth';
 
-const API_URL = 'https://api.example.com';
-
 const api = axios.create({
-  baseURL: API_URL,
+  baseURL: import.meta.env.VITE_BACKEND_API || 'http://localhost:3000',
   withCredentials: true, // This allows the API to set cookies
 });
 
 export const login = async (
   credentials: LoginCredentials,
 ): Promise<AuthResponse> => {
-  const response = await api.post<AuthResponse>('/login', credentials);
+  const response = await api.post<AuthResponse>('/auth/login', credentials);
   return response.data;
 };
 
@@ -20,7 +18,7 @@ export const logout = async (): Promise<void> => {
 };
 
 export const refreshToken = async (): Promise<RefreshResponse> => {
-  const response = await api.post<RefreshResponse>('/refresh-token');
+  const response = await api.post<RefreshResponse>('/auth/refresh-token');
   return response.data;
 };
 

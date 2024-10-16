@@ -3,10 +3,10 @@ import { Input, InputGroup } from '../components/Input';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { postData } from '../utils/api';
 import { router } from '../Router';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../store/store';
+import { login } from '../store/authSlice';
 
 const schema = z.object({
   email: z.string().email(),
@@ -32,15 +32,12 @@ function Login() {
     try {
       const { email, password } = data;
 
-      const response = await postData<{ token: string }, FormField>(
-        '/auth/login',
-        {
+      dispatch(
+        login({
           email,
           password,
-        },
+        }),
       );
-
-      localStorage.setItem('token', response.token);
       router.navigate('/');
     } catch (error) {
       console.error('Login failed:', error);

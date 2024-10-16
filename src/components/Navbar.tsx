@@ -4,14 +4,14 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import DropdownMenu from './DropdownMenu';
 import { twMerge } from 'tailwind-merge';
 import useClickOutside from '../hooks/useClickOutside';
-
-
-
-
+import { useAppSelector } from '../store/hooks';
+import { RootState } from '../store/store';
 
 function Navbar({ className }: { className?: string }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isSeller, setIsSeller] = useState(false);
+  const { isAuthenticated } = useAppSelector((state: RootState) => state.auth);
+  const isSeller = false;
+
+  // const [isSeller, setIsSeller] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -29,19 +29,15 @@ function Navbar({ className }: { className?: string }) {
         {isMenuOpen && (
           <Sidebar
             toggleMobileMenu={toggleMobileMenu}
-            isLoggedIn={isLoggedIn}
-            setIsLoggedIn={setIsLoggedIn}
+            isLoggedIn={isAuthenticated}
             isSeller={isSeller}
-            setIsSeller={setIsSeller}
           />
         )}
         <Logo />
         <DesktopMenu />
         <UserActions
-          isLoggedIn={isLoggedIn}
-          setIsLoggedIn={setIsLoggedIn}
+          isLoggedIn={isAuthenticated}
           isSeller={isSeller}
-          setIsSeller={setIsSeller}
           toggleMobileMenu={toggleMobileMenu}
         />
       </div>
@@ -56,9 +52,7 @@ function Sidebar({
 }: {
   toggleMobileMenu: () => void;
   isLoggedIn: boolean;
-  setIsLoggedIn: (value: boolean) => void;
   isSeller: boolean;
-  setIsSeller: (value: boolean) => void;
 }) {
   const sidebarRef = useRef<HTMLDivElement>(null);
 
@@ -136,9 +130,7 @@ function UserActions({
   toggleMobileMenu,
 }: {
   isLoggedIn: boolean;
-  setIsLoggedIn: (value: boolean) => void;
   isSeller: boolean;
-  setIsSeller: (value: boolean) => void;
   toggleMobileMenu: () => void;
 }) {
   return (
