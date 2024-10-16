@@ -3,7 +3,6 @@ import { Breadcrumb } from '../components/Breadcrumbs';
 import StarRating from '../components/Stars';
 import { useState } from 'react';
 
-
 const SingleProduct = () => {
   const breadcrumbs: Breadcrumb[] = [
     { name: 'Home', link: '/' },
@@ -15,12 +14,12 @@ const SingleProduct = () => {
     "/images/Product_item.png",
     "/images/Product_item.png",
     "/images/Product_item.png",
-    "/images/cart_imgae.jpg",
-    "/images/Product_item.png",
- 
+    "/images/login.png",
+    "/images/signup.jpg",
   ];
-  const [currentIndex, setCurrentIndex] = useState(0);
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedImage, setSelectedImage] = useState(images[0]);
 
   const thumbnailsToShow = 4;
 
@@ -36,7 +35,9 @@ const SingleProduct = () => {
     }
   };
 
- 
+  const handleThumbnailClick = (image: string) => {
+    setSelectedImage(image);
+  };
 
   return (
     <>
@@ -45,7 +46,7 @@ const SingleProduct = () => {
       </div>
       <div className="container">
         <div className="mt-9 grid grid-cols-1 gap-7 lg:grid-cols-2">
-          {/* product imgae */}
+          {/* product image */}
           <div className="flex flex-col-reverse gap-4 lg:flex-row">
             {/* small image which at left */}
             <div className="relative flex w-full lg:w-auto items-center">
@@ -63,7 +64,8 @@ const SingleProduct = () => {
                 {images.slice(currentIndex, currentIndex + thumbnailsToShow).map((image, index) => (
                   <div
                     key={index}
-                    className="h-10 w-full sm:h-16 md:h-20 lg:h-24 xl:h-28 2xl:h-32"
+                    className="h-10 w-full sm:h-16 md:h-20 lg:h-24 xl:h-28 2xl:h-32 cursor-pointer"
+                    onClick={() => handleThumbnailClick(image)}
                   >
                     <img
                       src={image}
@@ -87,13 +89,12 @@ const SingleProduct = () => {
             {/* large image */}
             <div className="flex flex-1 flex-col ">
               <img
-                src="/images/Product_item.png"
+                src={selectedImage}
                 className="h-auto max-h-64 w-full object-contain md:max-h-60 lg:max-h-80 xl:max-h-96 2xl:max-h-[32rem]"
-                alt="XS Product"
+                alt="Selected Product"
               />
             </div>
           </div>
-
           {/* details of product */}
           <div className='ml-5'>
             <h1 className="text-3xl font-normal">Asgaard sofa</h1>
