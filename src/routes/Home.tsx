@@ -4,7 +4,7 @@ import Category from '../components/Category';
 export default function Home() {
   return (
     <div>
-      <div className="min-h-screen bg-secondary">
+      <div className="bg-secondary md:py-10 lg:py-20">
         <div className="container py-5">
           <div className="flex flex-col-reverse items-center justify-between gap-12 lg:flex-row">
             {/* Text and button */}
