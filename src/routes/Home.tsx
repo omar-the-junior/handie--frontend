@@ -26,28 +26,28 @@ export default function Home() {
             <div className="grid w-full max-w-lg grid-cols-2 gap-4">
               <div className="aspect-square overflow-hidden rounded-lg">
                 <img
-                  src="/public/images/1.jpg"
+                  src="/images/1.jpg"
                   alt="Handcrafted item 1"
                   className="h-full w-full object-cover"
                 />
               </div>
               <div className="aspect-square overflow-hidden rounded-lg">
                 <img
-                  src="/public/images/2.jpg"
+                  src="/images/2.jpg"
                   alt="Handcrafted item 2"
                   className="h-full w-full object-cover"
                 />
               </div>
               <div className="aspect-square overflow-hidden rounded-lg">
                 <img
-                  src="/public/images/3.jpg"
+                  src="/images/3.jpg"
                   alt="Handcrafted item 3"
                   className="h-full w-full object-cover"
                 />
               </div>
               <div className="aspect-square overflow-hidden rounded-lg">
                 <img
-                  src="/public/images/4.jpg"
+                  src="/images/4.jpg"
                   alt="Handcrafted item 4"
                   className="h-full w-full object-cover"
                 />
