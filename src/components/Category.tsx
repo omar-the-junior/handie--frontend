@@ -5,18 +5,16 @@ interface CategoryProps {
 
 const Category = ({ title, bgUrl }: CategoryProps) => {
   return (
-    // here it make the w = 400 h = 500
-    <div className="relative w-[400px] h-[500px] cursor-pointer overflow-hidden rounded-2xl md:w-96 md:h-[450px]">
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `linear-gradient(0deg, rgba(69, 48, 2, 0.30) 0%, rgba(69, 48, 2, 0.30) 100%), url(${bgUrl})`,
-          backgroundColor: 'lightgray',
-        }}
-      ></div>
-      <p className="absolute inset-0 flex items-center justify-center text-center text-5xl font-bold text-white">
-        {title}
-      </p>
+    <div className="relative aspect-[4/5] w-full max-w-[400px] cursor-pointer overflow-hidden rounded-2xl">
+      <img
+        className="h-full w-full rounded-md object-cover"
+        src={bgUrl}
+        alt={title}
+      />
+      <div className="absolute inset-0 rounded-md bg-[#453002] opacity-30"></div>
+      <div className="absolute inset-0 flex h-full w-full items-center justify-center px-5">
+        <h2 className="h3 text-center font-bold text-white">{title}</h2>
+      </div>
     </div>
   );
 };
