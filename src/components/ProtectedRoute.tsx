@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
 import { RootState, AppDispatch } from '../store/store';
 import { refreshToken } from '../store/authSlice';
+import Cookies from 'js-cookie';
 
 export default function ProtectedRoute() {
   const { isAuthenticated, accessToken } = useSelector(
@@ -11,10 +12,17 @@ export default function ProtectedRoute() {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    if (!accessToken && !isAuthenticated) {
+    const storedToken = Cookies.get('accessToken');
+    if (!storedToken) {
       dispatch(refreshToken());
     }
-  }, [dispatch, accessToken, isAuthenticated]);
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (accessToken) {
+      Cookies.set('accessToken', accessToken, { expires: 7 }); // Set cookie to expire in 7 days
+    }
+  }, [accessToken]);
 
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;

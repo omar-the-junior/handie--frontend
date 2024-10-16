@@ -32,12 +32,12 @@ function Login() {
     try {
       const { email, password } = data;
 
-      dispatch(
+      await dispatch(
         login({
           email,
           password,
         }),
-      );
+      ).unwrap();
       router.navigate('/');
     } catch (error) {
       console.error('Login failed:', error);

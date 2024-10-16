@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { AuthState, LoginCredentials } from '../types/auth';
 import * as authApi from '../api/authApi';
+import Cookies from 'js-cookie';
 
 const initialState: AuthState = {
   user: null,
-  accessToken: null,
-  isAuthenticated: false,
+  accessToken: Cookies.get('accessToken') || null,
+  isAuthenticated: !!Cookies.get('accessToken'),
   isLoading: false,
   error: null,
 };
@@ -15,6 +16,7 @@ export const login = createAsyncThunk(
   async (credentials: LoginCredentials, { rejectWithValue }) => {
     try {
       const response = await authApi.login(credentials);
+      Cookies.set('accessToken', response.accessToken, { expires: 7 }); // Set cookie to expire in 7 days
       return response;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -24,10 +26,12 @@ export const login = createAsyncThunk(
 
 export const logout = createAsyncThunk('auth/logout', async () => {
   await authApi.logout();
+  Cookies.remove('accessToken');
 });
 
 export const refreshToken = createAsyncThunk('auth/refreshToken', async () => {
   const response = await authApi.refreshToken();
+  Cookies.set('accessToken', response.accessToken, { expires: 7 }); // Set cookie to expire in 7 days
   return response;
 });
 
@@ -37,6 +41,9 @@ const authSlice = createSlice({
   reducers: {
     clearError: (state) => {
       state.error = null;
+    },
+    setAuthenticated: (state, action) => {
+      state.isAuthenticated = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -66,5 +73,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { clearError } = authSlice.actions;
+export const { clearError, setAuthenticated } = authSlice.actions;
 export default authSlice.reducer;

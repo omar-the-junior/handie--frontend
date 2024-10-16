@@ -1,18 +1,27 @@
 import { Link } from 'react-router-dom';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import DropdownMenu from './DropdownMenu';
 import { twMerge } from 'tailwind-merge';
 import useClickOutside from '../hooks/useClickOutside';
-import { useAppSelector } from '../store/hooks';
+import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { RootState } from '../store/store';
+import { setAuthenticated } from '../store/authSlice';
+import Cookies from 'js-cookie';
 
 function Navbar({ className }: { className?: string }) {
   const { isAuthenticated } = useAppSelector((state: RootState) => state.auth);
+  const dispatch = useAppDispatch();
   const isSeller = false;
 
-  // const [isSeller, setIsSeller] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const storedToken = Cookies.get('accessToken');
+    if (storedToken) {
+      dispatch(setAuthenticated(true));
+    }
+  }, [dispatch]);
 
   const toggleMobileMenu = () => {
     setIsMenuOpen(!isMenuOpen);
