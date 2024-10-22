@@ -1,28 +1,11 @@
 import axios from 'axios';
-import { LoginCredentials, AuthResponse, RefreshResponse } from '../types/auth';
+import { refreshToken } from './auth.api';
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_API || 'http://localhost:3000',
   withCredentials: true, // This allows the API to set cookies
 });
 
-export const login = async (
-  credentials: LoginCredentials,
-): Promise<AuthResponse> => {
-  const response = await api.post<AuthResponse>('/auth/login', credentials);
-  return response.data;
-};
-
-export const logout = async (): Promise<void> => {
-  await api.post('/logout');
-};
-
-export const refreshToken = async (): Promise<RefreshResponse> => {
-  const response = await api.post<RefreshResponse>('/auth/refresh-token');
-  return response.data;
-};
-
-// Interceptor to handle token refresh
 api.interceptors.response.use(
   (response) => response,
   async (error) => {

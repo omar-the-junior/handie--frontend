@@ -19,5 +19,5 @@ export type AppThunk<ThunkReturnType = void> = ThunkAction<
   ThunkReturnType,
   RootState,
   unknown,
-  Action<string>
+  Action
 >;

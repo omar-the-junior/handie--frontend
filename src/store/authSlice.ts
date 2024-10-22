@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { AuthState, LoginCredentials } from '../types/auth';
-import * as authApi from '../api/authApi';
+import { AuthState, LoginCredentials, RefreshResponse } from '../types/auth';
+import * as authApi from '../api/auth.api';
+import axios from 'axios';
 
 const initialState: AuthState = {
   user: null,
@@ -27,8 +28,17 @@ export const logout = createAsyncThunk('auth/logout', async () => {
 });
 
 export const refreshToken = createAsyncThunk('auth/refreshToken', async () => {
-  const response = await authApi.refreshToken();
-  return response;
+  console.log('sending the refreshtoken request');
+
+  const axiosResponse = await axios.post<RefreshResponse>(
+    `${import.meta.env.VITE_BACKEND_API}/auth/refresh-token`,
+    null,
+    {
+      withCredentials: true,
+    },
+  );
+
+  return axiosResponse.data;
 });
 
 const authSlice = createSlice({
@@ -60,11 +70,23 @@ const authSlice = createSlice({
         state.accessToken = null;
         state.isAuthenticated = false;
       })
+      .addCase(refreshToken.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
       .addCase(refreshToken.fulfilled, (state, action) => {
+        state.user = action.payload.user;
         state.accessToken = action.payload.accessToken;
+        state.isAuthenticated = !!action.payload.accessToken;
       });
   },
 });
+
+export const selectUser = (state: { auth: AuthState }) => state.auth.user;
+export const selectIsAuthenticated = (state: { auth: AuthState }) =>
+  state.auth.isAuthenticated;
+export const selectIsLoading = (state: { auth: AuthState }) =>
+  state.auth.isLoading;
 
 export const { clearError } = authSlice.actions;
 export default authSlice.reducer;

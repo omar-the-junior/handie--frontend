@@ -2,6 +2,7 @@ export interface User {
   id: string;
   email: string;
   name: string;
+  userType: 'SELLER' | 'BUYER';
 }
 
 export interface AuthState {
@@ -23,5 +24,6 @@ export interface AuthResponse {
 }
 
 export interface RefreshResponse {
+  user: User;
   accessToken: string;
 }

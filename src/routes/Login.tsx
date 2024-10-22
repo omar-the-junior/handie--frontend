@@ -18,6 +18,9 @@ type FormField = z.infer<typeof schema>;
 function Login() {
   const dispatch = useDispatch<AppDispatch>();
 
+  const params = new URLSearchParams(location.search);
+  const from = params.get('from') || '/';
+
   const {
     register,
     setError,
@@ -32,13 +35,13 @@ function Login() {
     try {
       const { email, password } = data;
 
-      dispatch(
+      await dispatch(
         login({
           email,
           password,
         }),
       );
-      router.navigate('/');
+      router.navigate(from);
     } catch (error) {
       console.error('Login failed:', error);
       setError('root', { message: 'Invalid email or password' });

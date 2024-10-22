@@ -6,9 +6,16 @@ export interface InputGroupProps {
   error?: string;
   children: ReactElement;
   className?: string;
+  dontShowIndicator?: boolean;
 }
 
-const InputGroup = ({ label, error, children, className }: InputGroupProps) => {
+const InputGroup = ({
+  label,
+  error,
+  children,
+  className,
+  dontShowIndicator,
+}: InputGroupProps) => {
   return (
     <div className={twMerge('flex flex-col gap-1', className)}>
       {label && (
@@ -17,11 +24,12 @@ const InputGroup = ({ label, error, children, className }: InputGroupProps) => {
           className="text-base-r font-poppins font-semibold text-charcoal"
         >
           {label}
-          {children.props.required ? (
-            <span className="text-alert">*</span>
-          ) : (
-            <span className="text-neutral"> (Optional)</span>
-          )}
+          {!dontShowIndicator &&
+            (children.props.required ? (
+              <span className="text-alert">*</span>
+            ) : (
+              <span className="text-neutral"> (Optional)</span>
+            ))}
         </label>
       )}
       {children}
