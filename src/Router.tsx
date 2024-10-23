@@ -10,6 +10,9 @@ import Signup from './routes/Signup';
 import Checkout from './routes/Checkout';
 import Userprofile from './routes/Userprofile';
 import Cart from './routes/Cart';
+
+import Wishlist from './routes/Wishlist';
+
 import BecomeSeller from './routes/BecomeSeller';
 import { store } from './store/store';
 import { logout, refreshToken } from './store/authSlice';
@@ -79,6 +82,9 @@ export const router = createBrowserRouter([
         element: <Cart />,
       },
       {
+        path: 'wishlist',
+        element: <Wishlist />,
+
         path: 'become-seller',
         element: <BecomeSeller />,
       },
