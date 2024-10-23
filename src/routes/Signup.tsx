@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { router } from '../Router';
-import { postData } from '../utils/api';
+import { postData } from '../api/services.api';
 
 const schema = z.object({
   name: z.string(),

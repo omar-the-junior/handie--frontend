@@ -1,17 +1,19 @@
-import { Link } from 'react-router-dom';
+import { Link, useFetcher } from 'react-router-dom';
 import { useRef, useState } from 'react';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import DropdownMenu from './DropdownMenu';
 import { twMerge } from 'tailwind-merge';
 import useClickOutside from '../hooks/useClickOutside';
-
-
-
-
+import { useAppSelector } from '../store/hooks';
+import { RootState } from '../store/store';
 
 function Navbar({ className }: { className?: string }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isSeller, setIsSeller] = useState(false);
+  const { isAuthenticated, user } = useAppSelector(
+    (state: RootState) => state.auth,
+  );
+  const isSeller = user?.userType === 'SELLER';
+
+  // const [isSeller, setIsSeller] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -29,19 +31,15 @@ function Navbar({ className }: { className?: string }) {
         {isMenuOpen && (
           <Sidebar
             toggleMobileMenu={toggleMobileMenu}
-            isLoggedIn={isLoggedIn}
-            setIsLoggedIn={setIsLoggedIn}
+            isLoggedIn={isAuthenticated}
             isSeller={isSeller}
-            setIsSeller={setIsSeller}
           />
         )}
         <Logo />
         <DesktopMenu />
         <UserActions
-          isLoggedIn={isLoggedIn}
-          setIsLoggedIn={setIsLoggedIn}
+          isLoggedIn={isAuthenticated}
           isSeller={isSeller}
-          setIsSeller={setIsSeller}
           toggleMobileMenu={toggleMobileMenu}
         />
       </div>
@@ -56,9 +54,7 @@ function Sidebar({
 }: {
   toggleMobileMenu: () => void;
   isLoggedIn: boolean;
-  setIsLoggedIn: (value: boolean) => void;
   isSeller: boolean;
-  setIsSeller: (value: boolean) => void;
 }) {
   const sidebarRef = useRef<HTMLDivElement>(null);
 
@@ -136,11 +132,13 @@ function UserActions({
   toggleMobileMenu,
 }: {
   isLoggedIn: boolean;
-  setIsLoggedIn: (value: boolean) => void;
   isSeller: boolean;
-  setIsSeller: (value: boolean) => void;
   toggleMobileMenu: () => void;
 }) {
+  const fetcher = useFetcher();
+
+  const isLoggingOut = fetcher.formData != null;
+
   return (
     <div className="flex items-center space-x-4">
       {isSeller && isLoggedIn ? (
@@ -163,21 +161,53 @@ function UserActions({
             </button>
           </DropdownMenu.Trigger>
           <DropdownMenu.Content className="right-0 h-max gap-2 bg-secondary p-4">
-            <DropdownMenuItem
-              to="/cart"
-              iconSrc="/icons/shopping_cart.svg"
-              label="Shopping Cart"
-            />
-            <DropdownMenuItem
-              to="/wishlist"
-              iconSrc="/icons/wishlist.svg"
-              label="Wishlist"
-            />
-            <DropdownMenuItem
-              to="/profile"
-              iconSrc="/icons/profile.svg"
-              label="Profile"
-            />
+            <DropdownMenu.Item className="w-full gap-4">
+              <Link to={'/cart'} className="flex w-full gap-4">
+                <img
+                  src={'/icons/shopping_cart.svg'}
+                  alt={`Shopping cart Icon`}
+                  className="h-6 w-6"
+                />
+                <span className="text-black font-semibold">Shopping Cart</span>
+              </Link>
+            </DropdownMenu.Item>
+            <DropdownMenu.Item className="w-full gap-4">
+              <Link to={'/wishlist'} className="flex w-full gap-4">
+                <img
+                  src={'/icons/wishlist.svg'}
+                  alt={`Wishlist Icon`}
+                  className="h-6 w-6"
+                />
+                <span className="text-black font-semibold">Wishlist</span>
+              </Link>
+            </DropdownMenu.Item>
+            <DropdownMenu.Item className="w-full gap-4">
+              <Link to={'/profile'} className="flex w-full gap-4">
+                <img
+                  src={'/icons/profile.svg'}
+                  alt={`Profile Icon`}
+                  className="h-6 w-6"
+                />
+                <span className="text-black font-semibold">Profile</span>
+              </Link>
+            </DropdownMenu.Item>
+            <DropdownMenu.Item className="w-full gap-4">
+              <fetcher.Form method="post" action="/logout">
+                <button
+                  type="submit"
+                  disabled={isLoggingOut}
+                  className="flex w-full gap-4"
+                >
+                  <Icon
+                    icon="solar:logout-2-outline"
+                    className="size-6 text-charcoal"
+                  />
+                  <span className="text-black font-semibold">
+                    {isLoggingOut ? 'Logging out...' : 'Logout'}
+                  </span>
+                </button>
+              </fetcher.Form>
+            </DropdownMenu.Item>
           </DropdownMenu.Content>
         </DropdownMenu>
       ) : (
@@ -196,24 +226,4 @@ function UserActions({
     </div>
   );
 }
-
-function DropdownMenuItem({
-  to,
-  iconSrc,
-  label,
-}: {
-  to: string;
-  iconSrc: string;
-  label: string;
-}) {
-  return (
-    <DropdownMenu.Item className="w-full gap-4">
-      <Link to={to} className="flex w-full gap-4">
-        <img src={iconSrc} alt={`${label} Icon`} className="h-6 w-6" />
-        <span className="text-black font-semibold">{label}</span>
-      </Link>
-    </DropdownMenu.Item>
-  );
-}
-
 export default Navbar;

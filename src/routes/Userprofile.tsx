@@ -1,6 +1,16 @@
+import { useRouteLoaderData } from 'react-router-dom';
 import { Input, InputGroup } from '../components/Input';
 
 const UserProfile = () => {
+  const { user } = useRouteLoaderData('profile') as {
+    user: {
+      id: number;
+      email: string;
+      name: string;
+      phone: string;
+      userType: string;
+    };
+  };
   return (
     <div className="bg-white">
       <div className="container mx-auto px-4 py-32">
@@ -9,34 +19,36 @@ const UserProfile = () => {
         </h1>
         <form className="w-full">
           <div className="flex w-full flex-col gap-5 sm:flex-row">
-            <InputGroup className="flex-1" label="First Name">
-              <Input id="first-name" variant="rounded" placeholder="John" />
-            </InputGroup>
-            <InputGroup className="flex-1" label="Last Name">
-              <Input id="last-name" variant="rounded" placeholder="Doe" />
-            </InputGroup>
-          </div>
-
-          <div className="mt-6 flex w-full flex-col gap-5 sm:flex-row">
-            <InputGroup className="flex-1" label="Email">
+            <InputGroup className="flex-1" label="Name" dontShowIndicator>
               <Input
-                id="email"
+                id="name"
                 variant="rounded"
-                type="email"
-                placeholder="johndoe@example.com"
+                placeholder="John"
+                value={user.name}
               />
             </InputGroup>
-            <InputGroup className="flex-1" label="Address">
+            <InputGroup
+              className="flex-1"
+              label="Phone number"
+              dontShowIndicator
+            >
               <Input
-                id="address"
+                id="phone"
                 variant="rounded"
-                type="email"
-                placeholder="Your address"
+                type="tel"
+                value={user.phone}
               />
             </InputGroup>
           </div>
-
-          <div className="mt-6 flex w-full flex-col gap-5">
+          <InputGroup className="mt-5 flex-1" label="Email" dontShowIndicator>
+            <Input
+              id="email"
+              variant="rounded"
+              type="email"
+              value={user.email}
+            />
+          </InputGroup>
+          {/* <div className="mt-6 flex w-full flex-col gap-5">
             <InputGroup className="flex-1" label="change password">
               <Input
                 id="change password"
@@ -61,7 +73,7 @@ const UserProfile = () => {
                 placeholder="Repeat New password"
               />
             </InputGroup>
-          </div>
+          </div> */}
 
           {/* Button */}
           <div className="mt-6 flex justify-end space-x-4">
