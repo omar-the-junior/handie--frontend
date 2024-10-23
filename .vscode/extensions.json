@@ -3,6 +3,8 @@
     "esbenp.prettier-vscode",
     "yoavbls.pretty-ts-errors",
     "bradlc.vscode-tailwindcss",
-    "christian-kohler.path-intellisense"
+    "christian-kohler.path-intellisense",
+    "dbaeumer.vscode-eslint",
+    "rvest.vs-code-prettier-eslint"
   ]
 }
