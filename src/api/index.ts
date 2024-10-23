@@ -2,7 +2,7 @@ import axios from 'axios';
 import { refreshToken } from './auth.api';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_API || 'http://localhost:3000',
+  baseURL: import.meta.env.VITE_BACKEND_API || 'http://localhost:5000',
   withCredentials: true, // This allows the API to set cookies
 });
 
