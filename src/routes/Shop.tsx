@@ -1,79 +1,36 @@
+import { useState, ChangeEvent } from 'react';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import Header from '../components/Header';
 import { Input } from '../components/Input';
-// import ProductCard from '../components/ProductCard';
 import { useLoaderData } from 'react-router-dom';
 import { Product } from '../types/response.types';
 import ProductCard from '../components/ProductCard';
 
 const Shop = () => {
   const breadcrumbs = [{ name: 'Home', link: '/' }, { name: 'Shop' }];
-
-  // const products = [
-  //   {
-  //     imageSrc:
-  //       'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  //     price: 15000,
-  //     productName: 'sofa',
-  //     rating: 3,
-  //     sellerName: 'Furniture Store',
-  //     discount: 20,
-  //     isNew: true,
-  //   },
-  //   {
-  //     imageSrc:
-  //       'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  //     price: 15000,
-  //     productName: 'sofa',
-  //     rating: 3,
-  //     sellerName: 'Furniture Store',
-  //     discount: 20,
-  //     isNew: true,
-  //   },
-  //   {
-  //     imageSrc:
-  //       'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  //     price: 20000,
-  //     productName: 'sofa',
-  //     rating: 4,
-  //     sellerName: 'Furniture Store',
-  //     discount: 20,
-  //     isNew: true,
-  //   },
-  //   {
-  //     imageSrc:
-  //       'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  //     price: 15000,
-  //     productName: 'sofa',
-  //     rating: 3,
-  //     sellerName: 'Furniture Store',
-  //     discount: 20,
-  //     isNew: true,
-  //   },
-  //   {
-  //     imageSrc:
-  //       'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  //     price: 15000,
-  //     productName: 'sofa',
-  //     rating: 3,
-  //     sellerName: 'Furniture Store',
-  //     discount: 20,
-  //     isNew: true,
-  //   },
-  //   {
-  //     imageSrc:
-  //       'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  //     price: 15000,
-  //     productName: 'sofa',
-  //     rating: 3,
-  //     sellerName: 'Furniture Store',
-  //     discount: 20,
-  //     isNew: true,
-  //   },
-  // ];
-
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortOrder, setSortOrder] = useState('');
   const { products } = useLoaderData() as { products: Product[] };
   console.log(products);
+
+  const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value.toLowerCase());
+  };
+
+  const handleSort = (event: ChangeEvent<HTMLSelectElement>) => {
+    setSortOrder(event.target.value);
+  };
+
+  const filteredAndSortedProducts = products
+    .filter((product) => product.title.toLowerCase().includes(searchTerm))
+    .sort((a, b) => {
+      if (sortOrder === 'lowToHigh') {
+        return a.price - b.price;
+      } else if (sortOrder === 'highToLow') {
+        return b.price - a.price;
+      }
+      return 0;
+    });
 
   return (
     <>
@@ -92,20 +49,23 @@ const Shop = () => {
               id="search"
               placeholder="Search for a product"
               className="w-full bg-transparent"
+              onChange={handleSearch}
             />
           </label>
           <div className="flex w-full max-w-sm justify-between gap-9 md:justify-start">
             <select
-              name="cars"
-              id="cars"
+              name="sort"
+              id="sort"
               aria-placeholder="Sort by"
               className="border-black flex gap-2 rounded-md border-2 bg-white px-5 py-2"
+              onChange={handleSort}
+              value={sortOrder}
             >
-              <option disabled selected>
+              <option value="" disabled>
                 Sort by
               </option>
-              <option value="BMW">Price (Low to High)</option>
-              <option value="mercedes">Price (High to Low)</option>
+              <option value="lowToHigh">Price (Low to High)</option>
+              <option value="highToLow">Price (High to Low)</option>
             </select>
 
             <button className="flex items-center gap-2 text-xl">
@@ -118,10 +78,10 @@ const Shop = () => {
 
       {/* products */}
       <div className="container grid place-items-center gap-10 py-12 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-        {products.map(
+        {filteredAndSortedProducts.map(
           ({ id, image, price, title, rating, seller, discount }) => (
             <ProductCard
-              key={id} // Add a unique key for each product
+              key={id}
               imageSrc={image ?? ''}
               price={price}
               productName={title}
