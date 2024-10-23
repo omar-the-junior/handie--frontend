@@ -1,73 +1,79 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
 import Header from '../components/Header';
 import { Input } from '../components/Input';
-import ProductCard from '../components/ProductCard';
+// import ProductCard from '../components/ProductCard';
+import { useLoaderData } from 'react-router-dom';
 
 const Shop = () => {
   const breadcrumbs = [{ name: 'Home', link: '/' }, { name: 'Shop' }];
 
-  const products = [
-    {
-      imageSrc:
-        'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      price: 15000,
-      productName: 'sofa',
-      rating: 3,
-      sellerName: 'Furniture Store',
-      discount: 20,
-      isNew: true,
-    },
-    {
-      imageSrc:
-        'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      price: 15000,
-      productName: 'sofa',
-      rating: 3,
-      sellerName: 'Furniture Store',
-      discount: 20,
-      isNew: true,
-    },
-    {
-      imageSrc:
-        'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      price: 20000,
-      productName: 'sofa',
-      rating: 4,
-      sellerName: 'Furniture Store',
-      discount: 20,
-      isNew: true,
-    },
-    {
-      imageSrc:
-        'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      price: 15000,
-      productName: 'sofa',
-      rating: 3,
-      sellerName: 'Furniture Store',
-      discount: 20,
-      isNew: true,
-    },
-    {
-      imageSrc:
-        'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      price: 15000,
-      productName: 'sofa',
-      rating: 3,
-      sellerName: 'Furniture Store',
-      discount: 20,
-      isNew: true,
-    },
-    {
-      imageSrc:
-        'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      price: 15000,
-      productName: 'sofa',
-      rating: 3,
-      sellerName: 'Furniture Store',
-      discount: 20,
-      isNew: true,
-    },
-  ];
+  // const products = [
+  //   {
+  //     imageSrc:
+  //       'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  //     price: 15000,
+  //     productName: 'sofa',
+  //     rating: 3,
+  //     sellerName: 'Furniture Store',
+  //     discount: 20,
+  //     isNew: true,
+  //   },
+  //   {
+  //     imageSrc:
+  //       'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  //     price: 15000,
+  //     productName: 'sofa',
+  //     rating: 3,
+  //     sellerName: 'Furniture Store',
+  //     discount: 20,
+  //     isNew: true,
+  //   },
+  //   {
+  //     imageSrc:
+  //       'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  //     price: 20000,
+  //     productName: 'sofa',
+  //     rating: 4,
+  //     sellerName: 'Furniture Store',
+  //     discount: 20,
+  //     isNew: true,
+  //   },
+  //   {
+  //     imageSrc:
+  //       'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  //     price: 15000,
+  //     productName: 'sofa',
+  //     rating: 3,
+  //     sellerName: 'Furniture Store',
+  //     discount: 20,
+  //     isNew: true,
+  //   },
+  //   {
+  //     imageSrc:
+  //       'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  //     price: 15000,
+  //     productName: 'sofa',
+  //     rating: 3,
+  //     sellerName: 'Furniture Store',
+  //     discount: 20,
+  //     isNew: true,
+  //   },
+  //   {
+  //     imageSrc:
+  //       'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  //     price: 15000,
+  //     productName: 'sofa',
+  //     rating: 3,
+  //     sellerName: 'Furniture Store',
+  //     discount: 20,
+  //     isNew: true,
+  //   },
+  // ];
+
+  const product = useLoaderData();
+  const products = product.data.products;
+  console.log(products);
+
   return (
     <>
       <Header breadcrumbs={breadcrumbs} />
@@ -111,7 +117,7 @@ const Shop = () => {
 
       {/* products */}
       <div className="container grid place-items-center gap-10 py-12 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-        {products.map(
+        {/* {products.map(
           ({
             imageSrc,
             price,
@@ -122,6 +128,7 @@ const Shop = () => {
             isNew,
           }) => (
             <ProductCard
+              key={productName} // Add a unique key for each product
               imageSrc={imageSrc}
               price={price}
               productName={productName}
@@ -132,7 +139,7 @@ const Shop = () => {
               className="w-full max-w-sm"
             />
           ),
-        )}
+        )} */}
       </div>
     </>
   );

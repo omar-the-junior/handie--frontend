@@ -17,6 +17,7 @@ import authLoader from './loaders/authLoader';
 import protectedLoader from './loaders/protectedLoader';
 import { RefreshResponse } from './types/auth';
 import profileLoader from './loaders/profileLoader';
+import { fetchData } from './api/services.api';
 
 export const router = createBrowserRouter([
   {
@@ -44,6 +45,13 @@ export const router = createBrowserRouter([
       {
         path: 'shop',
         element: <Shop />,
+        async loader({ request, params }) {
+          return fetchData('/api/products/', {
+            signal: request.signal,
+            method: 'GET',
+            params: params,
+          }); 
+        },
       },
       {
         path: 'about',
