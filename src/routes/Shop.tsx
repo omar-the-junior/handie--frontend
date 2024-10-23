@@ -3,6 +3,8 @@ import Header from '../components/Header';
 import { Input } from '../components/Input';
 // import ProductCard from '../components/ProductCard';
 import { useLoaderData } from 'react-router-dom';
+import { Product } from '../types/response.types';
+import ProductCard from '../components/ProductCard';
 
 const Shop = () => {
   const breadcrumbs = [{ name: 'Home', link: '/' }, { name: 'Shop' }];
@@ -70,8 +72,7 @@ const Shop = () => {
   //   },
   // ];
 
-  const product = useLoaderData();
-  const products = product.data.products;
+  const { products } = useLoaderData() as { products: Product[] };
   console.log(products);
 
   return (
@@ -117,29 +118,20 @@ const Shop = () => {
 
       {/* products */}
       <div className="container grid place-items-center gap-10 py-12 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-        {/* {products.map(
-          ({
-            imageSrc,
-            price,
-            productName,
-            rating,
-            sellerName,
-            discount,
-            isNew,
-          }) => (
+        {products.map(
+          ({ id, image, price, title, rating, seller, discount }) => (
             <ProductCard
-              key={productName} // Add a unique key for each product
-              imageSrc={imageSrc}
+              key={id} // Add a unique key for each product
+              imageSrc={image ?? ''}
               price={price}
-              productName={productName}
-              rating={rating}
-              sellerName={sellerName}
+              productName={title}
+              rating={rating ?? 0}
+              sellerName={seller.name}
               discount={discount}
-              isNew={isNew}
               className="w-full max-w-sm"
             />
           ),
-        )} */}
+        )}
       </div>
     </>
   );
