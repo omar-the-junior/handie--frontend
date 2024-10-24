@@ -17,11 +17,11 @@ import BecomeSeller from './routes/BecomeSeller';
 import { store } from './store/store';
 import { logout, refreshToken } from './store/authSlice';
 import authLoader from './loaders/authLoader';
-import protectedLoader from './loaders/protectedLoader';
 import { RefreshResponse } from './types/auth';
 import profileLoader from './loaders/profileLoader';
 import { fetchData } from './api/services.api';
 import {
+  cartItem,
   Product,
   SuccessResponse,
   WishlistItemType,
@@ -94,8 +94,16 @@ export const router = createBrowserRouter([
       },
       {
         path: 'cart',
-        loader: protectedLoader,
         element: <Cart />,
+        async loader({ request }) {
+          const { data } = await fetchData<SuccessResponse<cartItem>>(
+            '/api/cart/items',
+            {
+              signal: request.signal,
+            },
+          );
+          return data;
+        },
       },
       {
         path: 'wishlist',

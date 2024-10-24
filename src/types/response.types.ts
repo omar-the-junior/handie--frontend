@@ -47,3 +47,26 @@ export interface WishlistItemType {
     ];
   };
 }
+
+export interface cartItem {
+  id: number;
+  product: {
+    id: number;
+    title: string;
+    price: number;
+    quantity: number;
+    discount: number;
+    image: string;
+    attributes: [
+      {
+        id: number;
+        values: [
+          {
+            id: number;
+            value: string;
+          },
+        ];
+      },
+    ];
+  };
+}
