@@ -21,7 +21,11 @@ import protectedLoader from './loaders/protectedLoader';
 import { RefreshResponse } from './types/auth';
 import profileLoader from './loaders/profileLoader';
 import { fetchData } from './api/services.api';
-import { Product, SuccessResponse } from './types/response.types';
+import {
+  Product,
+  SuccessResponse,
+  WishlistItemType,
+} from './types/response.types';
 
 export const router = createBrowserRouter([
   {
@@ -96,6 +100,15 @@ export const router = createBrowserRouter([
       {
         path: 'wishlist',
         element: <Wishlist />,
+        async loader({ request }) {
+          const { data } = await fetchData<SuccessResponse<WishlistItemType>>(
+            '/api/wishlist/items',
+            {
+              signal: request.signal,
+            },
+          );
+          return data;
+        },
       },
       {
         path: 'become-seller',

@@ -1,79 +1,16 @@
-import { Link } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom'; // Use useLoaderData
 import { useState } from 'react';
 import { Icon } from '@iconify/react/dist/iconify.js';
-
-type WishlistItem = {
-  id: number;
-  imageSrc: string;
-  price: number;
-  name: string;
-};
-
-type WishlistItemProps = {
-  name: string;
-  price: number;
-  imageSrc: string;
-  onRemove: (id: number) => void;
-  id: number;
-};
-
-const initialCartItems: WishlistItem[] = [
-  {
-    id: 1,
-    imageSrc:
-      'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    price: 15000,
-    name: 'Sofa',
-  },
-  {
-    id: 2,
-    imageSrc:
-      'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    price: 15000,
-    name: 'Chair',
-  },
-  {
-    id: 9,
-    imageSrc:
-      'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    price: 15000,
-    name: 'Table',
-  },
-  {
-    id: 8,
-    imageSrc:
-      'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    price: 15000,
-    name: 'Table',
-  },
-  {
-    id: 3,
-    imageSrc:
-      'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    price: 15000,
-    name: 'Table',
-  },
-  {
-    id: 5,
-    imageSrc:
-      'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    price: 15000,
-    name: 'Table',
-  },
-  {
-    id: 4,
-    imageSrc:
-      'https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    price: 15000,
-    name: 'Table',
-  },
-];
+import { WishlistItemType } from '../types/response.types';
 
 const Wishlist = () => {
-  const [cartItems, setCartItems] = useState<WishlistItem[]>(initialCartItems);
+  const { wishlistItems } = useLoaderData() as {
+    wishlistItems: WishlistItemType[];
+  };
+  const [cartItems, setCartItems] = useState<WishlistItemType[]>(wishlistItems);
 
-  const handleRemoveItem = (id: number) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  const handleRemoveItem = (item: WishlistItemType) => {
+    setCartItems((prevItems) => prevItems.filter((i) => i.id !== item.id));
   };
 
   return (
@@ -95,11 +32,8 @@ const Wishlist = () => {
           {cartItems.map((item) => (
             <WishlistItem
               key={item.id}
-              id={item.id} // Pass id prop
-              name={item.name}
-              price={item.price}
-              imageSrc={item.imageSrc}
-              onRemove={handleRemoveItem} // Pass remove function
+              item={item}
+              onRemove={handleRemoveItem}
             />
           ))}
         </div>
@@ -109,50 +43,57 @@ const Wishlist = () => {
 };
 
 function WishlistItem({
-  name,
-  price,
-  imageSrc,
+  item,
   onRemove,
-  id,
-}: WishlistItemProps) {
+}: {
+  item: WishlistItemType;
+  onRemove: (item: WishlistItemType) => void;
+}) {
+  const { title, price, discount, image } = item.product;
+
   return (
-  
-      <div className="w-full flex flex-col">
-        <div className="flex w-full rounded-lg bg-secondary px-2 py-4">
-          <img
-            src={imageSrc}
-            alt={name}
-            className="m-auto h-[259px] w-[245px] rounded-lg object-cover"
-          />
-        </div>
-        <div className="flex flex-col">
-          <div>
-            <h3 className="mb-6 text-2xl font-bold">{name}</h3>
-            <div className="mb-8 flex gap-5">
-              <div className="font-bold text-gray">2700 EGP</div>
-              <p className="text-gray line-through">{price} EGP</p>
-          
-            </div>
+    <div className="flex w-full flex-col">
+      <div className="flex w-full rounded-lg bg-secondary px-2 py-4">
+        <img
+          src={image}
+          alt={title}
+          className="m-auto h-[259px] w-[245px] rounded-lg object-cover"
+        />
+      </div>
+      <div className="flex flex-col">
+        <div>
+          <h3 className="mb-6 text-2xl font-bold">{title}</h3>
+          <div className="mb-8 flex gap-5">
+            {/* Conditionally display the discounted price */}
+            {discount ? (
+              <div className="font-bold text-gray line-through">
+                {price} EGP
+              </div>
+            ) : (
+              <div className="font-bold text-gray">{price} EGP</div>
+            )}
+            {discount && (
+              <div className="font-bold text-primary">
+                {price - price * (discount / 100)} EGP
+              </div>
+            )}
           </div>
         </div>
-        <div>
-          <button className="btn flex w-full items-center justify-center gap-2.5">
-            <Icon icon="solar:cart-plus-linear" className="size-8" />
-            <span>Move to Cart</span>
-          </button>
-          <button
-            className="btn btn-outline btn-charcoal mt-10 flex w-full items-center justify-center gap-2.5"
-            onClick={() => onRemove(id)}
-          >
-            <Icon
-              icon="solar:trash-bin-minimalistic-linear"
-              className="size-8"
-            />
-            <span>Remove</span>
-          </button>
-        </div>
       </div>
-
+      <div>
+        <button className="btn flex w-full items-center justify-center gap-2.5">
+          <Icon icon="solar:cart-plus-linear" className="size-8" />
+          <span>Move to Cart</span>
+        </button>
+        <button
+          className="btn btn-outline btn-charcoal mt-10 flex w-full items-center justify-center gap-2.5"
+          onClick={() => onRemove(item)}
+        >
+          <Icon icon="solar:trash-bin-minimalistic-linear" className="size-8" />
+          <span>Remove</span>
+        </button>
+      </div>
+    </div>
   );
 }
 
