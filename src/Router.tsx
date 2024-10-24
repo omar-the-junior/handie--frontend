@@ -50,7 +50,6 @@ export const router = createBrowserRouter([
         path: 'shop',
         element: <Shop />,
         async loader({ request, params }) {
-          console.log('hello from loader');
           const { data } = await fetchData<SuccessResponse<Product>>(
             '/api/products/',
             {
@@ -58,9 +57,6 @@ export const router = createBrowserRouter([
               params: params,
             },
           );
-
-          console.log(data);
-
           return data;
         },
       },
