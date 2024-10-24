@@ -25,33 +25,3 @@ export interface Product {
   };
   rating: number | null;
 }
-
-export interface WishlistItem {
-  status: 'success';
-  data: {
-    wishlistItems: [
-      {
-        id: number;
-        product: {
-          id: number;
-          title: string;
-          price: number;
-          discount: number;
-          image: string;
-          attributes: [
-            {
-              id: number;
-              values: [
-                {
-                  id: number;
-                  value: string;
-                },
-              ];
-            },
-          ];
-        };
-      },
-    ];
-  };
-  message: string;
-}
