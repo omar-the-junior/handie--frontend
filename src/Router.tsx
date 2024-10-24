@@ -100,7 +100,8 @@ export const router = createBrowserRouter([
       {
         path: 'wishlist',
         element: <Wishlist />,
-
+      },
+      {
         path: 'become-seller',
         element: <BecomeSeller />,
       },
