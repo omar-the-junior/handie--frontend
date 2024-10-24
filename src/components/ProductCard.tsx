@@ -25,8 +25,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
   discount = 50,
   className,
 }) => {
-  const discountedPrice = discount ? price - (price * discount) / 100 : price;
+  const discountedPrice = discount ? price - (price * discount) : price;
   const [hidden, setHidden] = useState(true);
+
+  
 
   return (
     <div
@@ -58,7 +60,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
         <div className="absolute right-2 top-2 z-0 flex gap-6">
           {isNew && <Badge type="new" text="New" />}
-          {discount && <Badge type="discount" text={`%${discount}`} />}
+          {discount && <Badge type="discount" text={`%${discount * 100}`} />}
         </div>
       </div>
 
