@@ -3,6 +3,7 @@ import Stars from './Stars';
 import { Icon } from '@iconify/react';
 import Badge from './Badge';
 import { twMerge } from 'tailwind-merge';
+import { postData } from '../api/services.api';
 
 export type ProductCardProps = {
   productName: string;
@@ -25,10 +26,19 @@ const ProductCard: React.FC<ProductCardProps> = ({
   discount = 50,
   className,
 }) => {
-  const discountedPrice = discount ? price - (price * discount) : price;
+  const discountedPrice = discount ? price - price * discount : price;
   const [hidden, setHidden] = useState(true);
 
-  
+  const handleAddToWishlist = async () => {
+    try {
+      const response = await postData('/api/wishlist/add', {
+        productId: 1
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div
@@ -56,6 +66,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           <Icon
             icon="ri:heart-add-2-line"
             className="h-10 w-10 cursor-pointer text-2xl text-white"
+            onClick={handleAddToWishlist}
           />
         </div>
         <div className="absolute right-2 top-2 z-0 flex gap-6">

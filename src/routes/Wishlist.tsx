@@ -51,6 +51,11 @@ function WishlistItem({
 }) {
   const { title, price, discount, image } = item.product;
 
+  const calculateDiscountedPrice = (price: number, discount: number) => {
+    const discountedPrice = price - price * (discount / 100);
+    return Math.round(discountedPrice * 100) / 100;
+  };
+
   return (
     <div className="flex w-full flex-col">
       <div className="flex w-full rounded-lg bg-secondary px-2 py-4">
@@ -74,7 +79,7 @@ function WishlistItem({
             )}
             {discount && (
               <div className="font-bold text-primary">
-                {price - price * (discount / 100)} EGP
+                {calculateDiscountedPrice(price, discount)} $
               </div>
             )}
           </div>

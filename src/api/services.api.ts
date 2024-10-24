@@ -28,6 +28,7 @@ export const postData = async <T, D>(
     throw error;
   }
 };
+
 export const putData = async <T, D>(
   endpoint: string,
   data: D,
@@ -41,5 +42,3 @@ export const putData = async <T, D>(
     throw error;
   }
 };
-
-
